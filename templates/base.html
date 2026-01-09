@@ -10,16 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    {% comment %}
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="assets/css/all.css" />
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="assets/css/bootstrap.css" />
-    <!-- Lightbox -->
-    <link rel="stylesheet" href="assets/css/lightbox.min.css" />
-    <!-- Custom -->
-    <link rel="stylesheet" href="assets/css/style.css" />
-    {% endcomment %}
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href={% static "css/all.css" %} />
@@ -29,23 +19,33 @@
     <link rel="stylesheet" href={% static "css/lightbox.min.css" %} />
     <!-- Custom -->
     <link rel="stylesheet" href={% static "css/style.css" %} />
+    <link rel="stylesheet" href={% static "css/shopBaseStyle.css" %} />
 
-    <title>BC Health Care</title>
+  <title>ERB8 SHOP</title>
   </head>
   <body>
     <!-- topbar-->
     {% include 'partials/_topbar.html' %}
     <!-- navbar -->
     {% include 'partials/_navbar.html' %}
+    <div id="subheader">
+      <div class="cart">
+        {% with total_items=cart|length %}
+          {% if total_items > 0 %}
+            Your cart:
+            <a href="{% url "cart:cart_detail" %}">
+              {{ total_items }} item{{ total_items|pluralize }},
+              ${{ cart.get_total_price }}
+            </a>
+          {% elif not order %}
+            Your cart is empty.
+          {% endif %}
+        {% endwith %}
+    </div>
     <!-- conent -->
     {% block content %} {% endblock %}
     <!-- footer -->
     {% include 'partials/_footer.html' %} 
-    {% comment %}
-    <script src="assets/js/jquery-3.3.1.min.js "></script>
-    <script src="assets/js/bootstrap.bundle.min.js "></script>
-    <script src="assets/js/main.js "></script>
-    {% endcomment %}
 
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>

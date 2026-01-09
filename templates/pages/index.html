@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static%}
 <!-- load humanize -->
 {% load humanize %}
 <!-- index main content -->
@@ -7,229 +8,39 @@
 {% include 'partials/_alert.html' %}
 
 <!-- Showcase -->
-<section id="showcase">
-  <div class="container text-center">
-    <div class="home-search p-5">
-      <div class="overlay p-5" style="visibility:hidden;">
-        <h1 class="display-4 mb-4">Clinic Searching Just Got So Easy</h1>
-        <p class="lead">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae
-          quas, asperiores eveniet vel nostrum magnam voluptatum tempore!
-          Consectetur, id commodi!
-        </p>
-        <div class="search">
-          <form action="#" method="GET">
-            <!-- Form Row 1 -->
-            <div class="form-row">
-              <div class="col-md-12 mb-3">
-                <label class="sr-only">Keywords</label>
-                <input
-                  type="text"
-                  name="keywords"
-                  class="form-control"
-                  placeholder="Keyword (Clinic, Doctor, City name, Town name, etc)"
-                />
-              </div>
-            </div>
-            <!-- Form Row 2 -->
-            <div class="form-row">
-              <div class="col-md-4 mb-3">
-                <label class="sr-only">District</label>
-                <select name="district" class="form-control">
-                  <option selected="true" disabled="disabled">
-                    District (All)
-                  </option>
-                  {% for key,value in district_choices.items %}
-                    <option value={{key}}>{{value}}</option>                  
-                  {% endfor %}
-                </select>
-              </div>
-              <div class="col-md-4 mb-3">
-                <label class="sr-only">Rooms</label>
-                <select name="rooms" class="form-control">
-                  <option selected="true" disabled="disabled">
-                    Rooms (All)
-                  </option>
-                  {% for key,value in rooms_choices.items %}
-                    <option value={{key}}>{{value}}</option>                  
-                  {% endfor %}
-                </select>
-              </div>
-              <div class="col-md-4 mb-3">
-                <select name="room_type" class="form-control" id="type">
-                  <option selected="true" disabled="disabled">
-                    Room Types (All)
-                  </option>
-                  {% for key,value in room_choices.items %}
-                    <option value={{key}}>{{value}}</option>                  
-                  {% endfor %}
-                  <!-- <option value="1">Private Rooms</option>
-                  <option value="2">Semi-Private Rooms</option>
-                  <option value="3">Standard (Multi-bed) Rooms</option> -->
-                </select>
-              </div>
-            </div>
-            <button class="btn btn-secondary btn-block mt-4" type="submit">
-              Submit form
-            </button>
-          </form>
-        </div>
+<section id="showcase" style="border:transparent 1px solid;">
+  <div class="container text-center" style="border:transparent 1px solid;">
+    <div id="sidebar">
+    <h3>Categories</h3>
+    <ul>
+      <li {% if not category %} class="selected" {% endif %} >
+        <a href="{% url 'pages:product_list' %}">All</a>
+      </li>
+      {% for c in categories %}
+        <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+          <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+    </div>
+    <div id="main" class="product-list" style="border:1px transparent solid;">
+   
+    <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
+    {% for product in products %}
+      <div class="item">
+        <a href="{{ product.get_absolute_url }}">
+          <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+        </a>
+        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+        <br>
+        ${{ product.price }}
       </div>
+    {% endfor %}
     </div>
   </div>
 </section>
 
-<!-- Listings -->
-<section id="listings" class="py-5" style="visibility:hidden;">
-  <div class="container">
-    <h3 class="text-center mb-3">Inpatient medical services</h3>
-    <div class="row">
-      {% if listings %}
-      <!-- Listing 1 -->
-      {% for listing in listings %}
-      <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card listing-preview">
-          {% comment %} {% endcomment %}
-          <img class="card-img-top" src="{{ listing.photo_1.url }}" alt="" />
-          <div class="card-img-overlay"></div>
-          <div class="card-body">
-            <div class="listing-heading text-center">
-              <h4 class="text-primary">{{listing.title}}</h4>
-              <p>
-                <i class="fas fa-map-marker text-secondary"></i>
-                {{listing.district | title }}
-              </p>
-            </div>
-            <hr />
-            <div class="row py-2 text-secondary">
-              <div class="col-6">
-                <i class="fas fa-th-large"></i> Services {{listing.service | apnumber | capfirst }}
-              </div>
-              <div class="col-6"><i class="fas fa-dumbbell"></i> Treatment</div>
-            </div>
-            <div class="row py-2 text-secondary">
-              <div class="col-6">
-                <i class="fas fa-bed"></i> Rooms {{listing.rooms}}
-              </div>
-              <div class="col-6"><i class="fas fa-bath"></i> Bathrooms</div>
-            </div>
-            <hr />
-            <div class="row py-2 text-secondary">
-              <div class="col-12">
-                <i class="fas fa-user"></i> {{listing.doctor.name}}
-              </div>
-            </div>
-            <div class="row text-secondary pb-2">
-              <div class="col-12">
-                <i class="fas fa-clock"></i> Reservation required <br />
-                {{listing.list_date | timesince}} <br />
-                {{listing.list_date | date:"F j,Y" }}
-              </div>
-            </div>
-            <hr />
-            <a
-              href="{% url 'listings:listing' listing.id %}"
-              class="btn btn-primary btn-block"
-              >More Info</a
-            >
-          </div>
-        </div>
-      </div>
-      {% endfor %} {% else %}
-      <div class="col-md-12">
-        <h2>No Clinic Available</h2>
-      </div>
-      {% endif %}
-      <!-- Listing 2 -->
-      <!-- <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card listing-preview">
-          {% comment %} {% endcomment %}
-          <img
-            class="card-img-top"
-            src="assets/img/clinics/clinic-2.jpg"
-            alt=""
-          />
-          <div class="card-img-overlay"></div>
-          <div class="card-body">
-            <div class="listing-heading text-center">
-              <h4 class="text-primary">Evercare Medical Center</h4>
-              <p>
-                <i class="fas fa-map-marker text-secondary"></i> Kowloon City
-              </p>
-            </div>
-            <hr />
-            <div class="row py-2 text-secondary">
-              <div class="col-6"><i class="fas fa-th-large"></i> Restrooms</div>
-              <div class="col-6"><i class="fas fa-dumbbell"></i> Treatment</div>
-            </div>
-            <div class="row py-2 text-secondary">
-              <div class="col-6"><i class="fas fa-bed"></i> Bedrooms</div>
-              <div class="col-6"><i class="fas fa-bath"></i> Bathrooms</div>
-            </div>
-            <hr />
-            <div class="row py-2 text-secondary">
-              <div class="col-12"><i class="fas fa-user"></i> Ms. Chung</div>
-            </div>
-            <div class="row text-secondary pb-2">
-              <div class="col-12">
-                <i class="fas fa-clock"></i> Reservation required
-              </div>
-            </div>
-            <hr />
-            {% comment %} {% endcomment %}
-            <a href="listing.html" class="btn btn-primary btn-block"
-              >More Info</a
-            >
-          </div>
-        </div>
-      </div> -->
 
-      <!-- Listing 3 -->
-      <!-- <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card listing-preview">
-          {% comment %} {% endcomment %}
-          <img
-            class="card-img-top"
-            src="assets/img/clinics/clinic-3.jpg"
-            alt=""
-          />
-          <div class="card-img-overlay"></div>
-          <div class="card-body">
-            <div class="listing-heading text-center">
-              <h4 class="text-primary">VitalPath Wellness Clinic</h4>
-              <p>
-                <i class="fas fa-map-marker text-secondary"></i> Sham Shui Po
-              </p>
-            </div>
-            <hr />
-            <div class="row py-2 text-secondary">
-              <div class="col-6"><i class="fas fa-th-large"></i> Restrooms</div>
-              <div class="col-6"><i class="fas fa-dumbbell"></i> Treatment</div>
-            </div>
-            <div class="row py-2 text-secondary">
-              <div class="col-6"><i class="fas fa-bed"></i> Bedrooms</div>
-              <div class="col-6"><i class="fas fa-bath"></i> Bathrooms</div>
-            </div>
-            <hr />
-            <div class="row py-2 text-secondary">
-              <div class="col-12"><i class="fas fa-user"></i> Ms. Chan</div>
-            </div>
-            <div class="row text-secondary pb-2">
-              <div class="col-12">
-                <i class="fas fa-clock"></i> Reservation required
-              </div>
-            </div>
-            <hr />
-            {% comment %} {% endcomment %}
-            <a href="listing.html" class="btn btn-primary btn-block"
-              >More Info</a
-            >
-          </div>
-        </div>
-      </div> -->
-    </div>
-  </div>
-</section>
 
 <!-- index page bottom Consulting Services,Inpatient Services,Primary Care Package -->
 <section id="services" class="py-5 bg-secondary text-white">
