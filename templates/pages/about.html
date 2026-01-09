@@ -1,0 +1,151 @@
+{% extends 'base.html' %} {% load static %}
+<!-- load humanize -->
+{% load humanize %}
+<!-- about main content -->
+{% block content %}
+
+<section id="showcase-inner" class="py-5 text-white">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h1 class="display-4">About BC Health Care</h1>
+        <p class="lead">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt,
+          pariatur!
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Breadcrumb -->
+<section id="bc" class="mt-3">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="{% url 'pages:index' %}">
+            <i class="fas fa-home"></i> Home</a
+          >
+        </li>
+        <li class="breadcrumb-item active">About</li>
+      </ol>
+    </nav>
+  </div>
+</section>
+
+<section id="about" class="py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h2>
+          We Search For The Your health, your home – we help you find the right
+          clinic.
+        </h2>
+        <p class="lead">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt,
+          pariatur!
+        </p>
+
+        <img src={% static "img/about.jpg" %} alt="" />
+        <p class="mt-4">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
+          esse officia repudiandae ad saepe ex, amet neque quod accusamus rem
+          quia magnam magni dolorum facilis ullam minima perferendis?
+          Exercitationem at quaerat commodi id libero eveniet harum perferendis
+          laborum molestias quia.
+        </p>
+      </div>
+      <div class="col-md-4">
+        {% if mvp_doctors %} {% for mvp_doctor in mvp_doctors %}
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{{ mvp_doctor.photo.url }}"
+            alt="Seller of the month"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ forloop.counter | ordinal }} doctor</h5>
+            <h6 class="text-secondary">{{ mvp_doctors.name}}</h6>
+            <p class="card-text">{{ mvp_doctors.description }}</p>
+          </div>
+        </div>
+        {% endfor %} {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Work -->
+<section id="work" class="bg-dark text-white text-center">
+  <h2 class="display-4">We Work For You</h2>
+  <h4>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem velit
+    aperiam, unde aliquid at similique!
+  </h4>
+  <hr />
+  <a
+    href="{% url 'pages:index' %}"
+    class="btn btn-secondary text-white btn-lg"
+  >
+    View Our Featured Listings
+  </a>
+</section>
+
+<!-- Team -->
+{% if doctors %}
+<section id="team" class="py-5">
+  <div class="container">
+    <h2 class="text-center pb-4">Our Team</h2>
+
+    <div class="row text-center">
+      {% for doctor in doctors %}
+        <div class="col-md-4">
+          <img
+            src="{{ doctor.photo.url }}"
+            alt=""
+            class="rounded-circle mb-3 img-fluid"
+            style="object-fit: cover; width: 300px; height: 300px"
+          />
+          <h4>{{ doctor.name }}</h4>
+          <p class="text-success">
+            <i class="fas fa-award text-success"></i> Doctor
+          </p>
+          <hr />
+          <p><i class="fas fa-phone"></i> {{ doctor.phone }}</p>
+          <p><i class="fas fa-envelope-open"></i> {{ doctor.email }}</p>
+        </div>
+      {% endfor %} 
+      {% comment %}
+      <div class="col-md-4">
+        <img
+          src="assets/img/doctors/emma.jpg"
+          alt=""
+          class="rounded-circle mb-3 img-fluid"
+          style="object-fit: cover; width: 300px; height: 300px"
+        />
+        <h4>Emma Lee</h4>
+        <p class="text-success">Doctor</p>
+        <hr />
+        <p><i class="fas fa-phone"></i> (852)-444-4444</p>
+        <p><i class="fas fa-envelope-open"></i> emma@healthcare.co</p>
+      </div>
+      {% endcomment %} {% comment %}
+      <div class="col-md-4">
+        <img
+          src="assets/img/doctors/jenny.jpg"
+          alt=""
+          class="rounded-circle mb-3 img-fluid"
+          style="object-fit: cover; width: 300px; height: 300px"
+        />
+        <h4>Jenny Cheung</h4>
+        <p class="text-success">Doctor</p>
+        <hr />
+        <p><i class="fas fa-phone"></i> (852)-333-3333</p>
+        <p><i class="fas fa-envelope-open"></i> jenny@healthcare.co</p>
+      </div>
+      {% endcomment %}
+    </div>
+  </div>
+</section>
+{% endif %} {% endblock%}
