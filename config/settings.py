@@ -46,7 +46,9 @@ DJANGO_APPS = [
 #Let Django app page do registry resources of the url link
 APPLICATION_APPS= [
     'pages.apps.PagesConfig',   
-    'accounts.apps.AccountsConfig',
+    'accounts.apps.AccountsConfig',       
+    'cart.apps.CartConfig',    
+    'orders.apps.OrdersConfig',
 ]
 
 THIRD_PARTY_APPS = ["debug_toolbar","widget_tweaks",'taggit']
@@ -77,6 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -170,5 +173,7 @@ MESSAGE_TAGS = {
     messages.INFO: "",
     50: "critical",
 }
+
+CART_SESSION_ID = 'cart'
 
 
