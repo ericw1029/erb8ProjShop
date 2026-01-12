@@ -8,77 +8,84 @@
 {% include 'partials/_alert.html' %}
 
 <!-- Showcase -->
-<!-- Showcase -->
-<section id="showcase" style="border:transparent 1px solid;">
-  <div class="container text-center" style="border:transparent 1px solid;">
-    <div id="sidebar">
-    <h3>Categories</h3>
-    <ul>
-      <li {% if not category %} class="selected" {% endif %} >
-        <a href="{% url 'pages:product_list' %}">All</a>
-      </li>
-      {% for c in categories %}
-        <li {% if category.slug == c.slug %}class="selected"{% endif %}>
-          <a href="{% url 'pages:product_list_by_category' c.slug %}">{{ c.name }}</a>
-        </li>
-      {% endfor %}
-    </ul>
+ <div class="container" style="border:transparent 1px solid;">
+    <div class="row">
+      <section id="showcase" style="border:transparent 1px solid;">
+          <div class="container text-center" style="border:transparent 1px solid;">
+            <div id="sidebar">
+              <h3>Categories</h3>
+              <ul>
+                <li {% if not category %} class="selected" {% endif %} >
+                  <a href="{% url 'pages:product_list' %}">All</a>
+                </li>
+                {% for c in categories %}
+                  <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+                    <a href="{% url 'pages:product_list_by_category' c.slug %}">{{ c.name }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+
+            <div id="main" class="product-list" style="border:1px transparent solid;">   
+              <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
+              <div class="row">
+                {% for product in products %}
+                  <div class="item" style="border:1px transparent solid;">
+                    <a href="{{ product.get_absolute_url }}">
+                      <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+                    </a>
+                    <a href="{{product.get_absolute_url }}">{{ product.name }}</a>
+                    <br>
+                    ${{ product.price }}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+      </section>
     </div>
-    <div id="main" class="product-list" style="border:1px transparent solid;">
-   
-    <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
-    {% for product in products %}
-      <div class="item">
-        <a href="{{ product.get_absolute_url }}">
-          <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
-        </a>
-        <a href="{{product.get_absolute_url }}">{{ product.name }}</a>
-        <br>
-        ${{ product.price }}
-      </div>
-    {% endfor %}
+    <div class="row" style="border:1px solid tansparent;">
+      <!-- index page bottom Consulting Services,Inpatient Services,Primary Care Package -->
+      <section id="services" class="py-5 bg-secondary text-white">
+        <div class="container">
+          <div class="row text-center">
+            <div class="col-md-4">
+              <i class="fas fa-comment fa-4x mr-4"></i>
+              <hr />
+              <h3>Consulting Services</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt,
+                debitis nam! Repudiandae, provident iste consequatur hic dignissimos
+                ratione ea quae.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <i class="fas fa-home fa-4x mr-4"></i>
+              <hr />
+              <h3>Inpatient Services</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt,
+                debitis nam! Repudiandae, provident iste consequatur hic dignissimos
+                ratione ea quae.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <i class="fas fa-suitcase fa-4x mr-4"></i>
+              <hr />
+              <h3>Primary Care Package</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt,
+                debitis nam! Repudiandae, provident iste consequatur hic dignissimos
+                ratione ea quae.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-  </div>
-</section>
+ </div>
 
 
 
-<!-- index page bottom Consulting Services,Inpatient Services,Primary Care Package -->
-<section id="services" class="py-5 bg-secondary text-white">
-  <div class="container">
-    <div class="row text-center">
-      <div class="col-md-4">
-        <i class="fas fa-comment fa-4x mr-4"></i>
-        <hr />
-        <h3>Consulting Services</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt,
-          debitis nam! Repudiandae, provident iste consequatur hic dignissimos
-          ratione ea quae.
-        </p>
-      </div>
-      <div class="col-md-4">
-        <i class="fas fa-home fa-4x mr-4"></i>
-        <hr />
-        <h3>Inpatient Services</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt,
-          debitis nam! Repudiandae, provident iste consequatur hic dignissimos
-          ratione ea quae.
-        </p>
-      </div>
-      <div class="col-md-4">
-        <i class="fas fa-suitcase fa-4x mr-4"></i>
-        <hr />
-        <h3>Primary Care Package</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt,
-          debitis nam! Repudiandae, provident iste consequatur hic dignissimos
-          ratione ea quae.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
 
 {% endblock %}
