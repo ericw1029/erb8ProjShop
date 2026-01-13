@@ -44,11 +44,12 @@ DJANGO_APPS = [
 ]
 
 #Let Django app page do registry resources of the url link
-APPLICATION_APPS= [
-    'pages.apps.PagesConfig',   
-    'accounts.apps.AccountsConfig',       
-    'cart.apps.CartConfig',    
-    'orders.apps.OrdersConfig',
+APPLICATION_APPS = [
+    "pages.apps.PagesConfig",
+    "accounts.apps.AccountsConfig",
+    "cart.apps.CartConfig",
+    "orders.apps.OrdersConfig",
+    "comments.apps.CommentsConfig",
 ]
 
 THIRD_PARTY_APPS = ["debug_toolbar","widget_tweaks",'taggit']
