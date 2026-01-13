@@ -1,0 +1,307 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Comment{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <!-- Original Comment Context -->
+        <div class="card mb-4">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">
+                    <i class="bi bi-chat-left"></i> Original Comment
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="flex-shrink-0">
+                        <div class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" 
+                             style="width: 40px; height: 40px;">
+                            {{ comment.author.username|first|upper }}
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <div class="d-flex justify-content-between">
+                            <strong>{{ comment.author.username }}</strong>
+                            <small class="text-muted">{{ comment.created_at|date:"M d, Y H:i" }}</small>
+                        </div>
+                        <p class="mb-0 mt-2">{{ comment.content }}</p>
+                        <small class="text-muted">
+                            <i class="bi bi-card-text"></i> On: 
+                            <a href="{% url 'blogs:post_detail' post.id %}" class="text-decoration-none">
+                                {{ post.title }}
+                            </a>
+                        </small>
+                        
+                        {% if comment.parent %}
+                            <div class="alert alert-light mt-2 mb-0">
+                                <small>
+                                    <i class="bi bi-reply"></i> 
+                                    <strong>Replying to:</strong> {{ comment.parent.author.username }}
+                                </small>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Form -->
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">
+                    <i class="bi bi-pencil-square"></i> Edit Comment
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {% for error in form.non_field_errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <!-- Content Field -->
+                    <div class="mb-3">
+                        <label for="id_content" class="form-label">Edit your comment:</label>
+                        {{ form.content }}
+                        {% if form.content.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.content.errors %}
+                                    <small><i class="bi bi-exclamation-circle"></i> {{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">
+                            You can edit your comment. Be respectful and constructive.
+                        </div>
+                    </div>
+
+                    <!-- Hidden parent field if it exists -->
+                    {% if comment.parent %}
+                        <input type="hidden" name="parent" value="{{ comment.parent.id }}">
+                    {% endif %}
+
+                    <!-- Edit Summary (Optional) -->
+                    <div class="mb-3" hidden>
+                        <label for="edit_summary" class="form-label">
+                            Edit Summary <small class="text-muted">(Optional)</small>
+                        </label>
+                        <input type="text" id="edit_summary" name="edit_summary" 
+                               class="form-control" placeholder="Briefly describe your changes...">
+                        <div class="form-text">
+                            Let others know what you changed.
+                        </div>
+                    </div>
+
+                    <!-- Preview -->
+                    <div class="mb-3" hidden>
+                        <button type="button" class="btn btn-outline-secondary" id="previewBtn">
+                            <i class="bi bi-eye"></i> Preview Changes
+                        </button>
+                    </div>
+
+                    <div class="mb-3 d-none" id="previewArea">
+                        <label class="form-label">Preview</label>
+                        <div class="border rounded p-3 bg-light" id="contentPreview"></div>
+                        <div class="mt-2 text-muted">
+                            <small>
+                                <i class="bi bi-info-circle"></i>
+                                This is how your comment will appear after editing.
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <!-- Left side -->
+                        <div>
+                            <a href="{% url 'blogs:post_detail' post.id %}" class="btn btn-outline-secondary">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                            <button type="submit" name="save_draft" value="true" class="btn btn-outline-primary" hidden>
+                                <i class="bi bi-save"></i> Save as Draft
+                            </button>
+                        </div>
+                        
+                        <!-- Right side -->
+                        <div>
+                            <button type="button" class="btn btn-outline-warning" 
+                                    data-toggle="modal" data-target="#revertModal" hidden>
+                                <i class="bi bi-arrow-counterclockwise"></i> Revert
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-circle"></i> Save Changes
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Card Footer with Info -->
+            <div class="card-footer bg-light">
+                <div class="row">
+                    <div class="col-md-6">
+                        <small class="text-muted">
+                            <i class="bi bi-clock-history"></i>
+                            Last edited: {{ comment.updated_at|timesince }} ago
+                        </small>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <small class="text-muted">
+                            <i class="bi bi-pencil-square"></i>
+                            You are editing your own comment
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips Card -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-lightbulb"></i> Comment Guidelines</h5>
+            </div>
+            <div class="card-body">
+                <ul class="mb-0">
+                    <li>Be respectful and constructive</li>
+                    <li>Stay on topic</li>
+                    <li>Use proper grammar and spelling</li>
+                    <li>Keep conversations civil</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Revert Modal -->
+<div class="modal fade" id="revertModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Revert to Original</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to revert to the original comment text?</p>
+                <div class="alert alert-warning">
+                    <small>
+                        <i class="bi bi-exclamation-triangle"></i>
+                        This will discard all your changes.
+                    </small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-warning" id="revertBtn">
+                    <i class="bi bi-arrow-counterclockwise"></i> Revert
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+<style>
+    .avatar {
+        font-weight: bold;
+    }
+    textarea {
+        min-height: 150px;
+    }
+    .card {
+        transition: all 0.3s ease;
+    }
+    .card:hover {
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Preview functionality
+    document.getElementById('previewBtn').addEventListener('click', function() {
+        const content = document.getElementById('id_content').value;
+        const previewArea = document.getElementById('previewArea');
+        const contentPreview = document.getElementById('contentPreview');
+        
+        if (content.trim()) {
+            // Convert line breaks and add some styling
+            contentPreview.innerHTML = content
+                .replace(/\n/g, '<br>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')  // Basic markdown
+                .replace(/\*(.*?)\*/g, '<em>$1</em>');
+            previewArea.classList.remove('d-none');
+        }
+    });
+
+    // Revert functionality
+    document.getElementById('revertBtn').addEventListener('click', function() {
+        const originalContent = `{{ comment.content|escapejs }}`;
+        document.getElementById('id_content').value = originalContent;
+        document.getElementById('revertModal').querySelector('.btn-close').click();
+        
+        // Show success message
+        const alertDiv = document.createElement('div');
+        alertDiv.className = 'alert alert-success alert-dismissible fade show mt-3';
+        alertDiv.innerHTML = `
+            <i class="bi bi-check-circle"></i> Comment reverted to original text.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        document.querySelector('.card-body').prepend(alertDiv);
+        
+        // Auto-dismiss after 3 seconds
+        setTimeout(() => {
+            const bsAlert = new bootstrap.Alert(alertDiv);
+            bsAlert.close();
+        }, 3000);
+    });
+
+    // Auto-resize textarea
+    const textarea = document.getElementById('id_content');
+    if (textarea) {
+        // Set initial height based on content
+        textarea.style.height = 'auto';
+        textarea.style.height = (textarea.scrollHeight) + 'px';
+        
+        // Auto-resize on input
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+    }
+
+    // Character counter
+    const charCounter = document.createElement('div');
+    charCounter.className = 'form-text text-end mt-1';
+    charCounter.innerHTML = '<span id="charCount">0</span>/1000 characters';
+    textarea.parentNode.appendChild(charCounter);
+    
+    textarea.addEventListener('input', function() {
+        document.getElementById('charCount').textContent = this.value.length;
+        
+        // Add warning if approaching limit
+        if (this.value.length > 900) {
+            charCounter.style.color = '#dc3545';
+            charCounter.innerHTML = `<span id="charCount">${this.value.length}</span>/1000 characters <i class="bi bi-exclamation-triangle"></i>`;
+        } else if (this.value.length > 700) {
+            charCounter.style.color = '#ffc107';
+            charCounter.innerHTML = `<span id="charCount">${this.value.length}</span>/1000 characters`;
+        } else {
+            charCounter.style.color = '#6c757d';
+            charCounter.innerHTML = `<span id="charCount">${this.value.length}</span>/1000 characters`;
+        }
+    });
+    
+    // Trigger initial count
+    textarea.dispatchEvent(new Event('input'));
+</script>
+{% endblock %}

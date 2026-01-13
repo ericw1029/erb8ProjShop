@@ -1,0 +1,18 @@
+<!-- templates/comments/comment_form.html -->
+<form method="post" action="{% url 'add_comment' post.id %}">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <label for="id_content">Leave a Comment:</label>
+        {{ form.content }}
+        {% if form.content.errors %}
+            <div class="alert alert-danger">
+                {{ form.content.errors }}
+            </div>
+        {% endif %}
+    </div>
+    
+    <button type="submit" class="btn btn-primary">
+        Post Comment
+    </button>
+</form>

@@ -22,13 +22,18 @@ from django.conf import settings
 #https://django-debug-toolbar.readthedocs.io/en/latest/installation.html
 from debug_toolbar.toolbar import debug_toolbar_urls
 
-urlpatterns = [
-    path('admin/', admin.site.urls),    
-    path('cart/', include('cart.urls', namespace='cart')),
-    path('orders/', include('orders.urls', namespace='orders')),  
-    path('accounts/',include('accounts.urls',namespace='accounts')),    
-    path('',include('pages.urls',namespace='pages')),  
-]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) + debug_toolbar_urls()
+urlpatterns = (
+    [
+        path("admin/", admin.site.urls),
+        path("cart/", include("cart.urls", namespace="cart")),
+        path("orders/", include("orders.urls", namespace="orders")),
+        path("accounts/", include("accounts.urls", namespace="accounts")),
+        path("blogs/", include("blogs.urls", namespace="blogs")),
+        path("", include("pages.urls", namespace="pages")),
+    ]
+    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    + debug_toolbar_urls()
+)
 
 
 # admin.site.site_header ="Clinic Administrator"

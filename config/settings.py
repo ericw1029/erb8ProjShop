@@ -49,7 +49,7 @@ APPLICATION_APPS = [
     "accounts.apps.AccountsConfig",
     "cart.apps.CartConfig",
     "orders.apps.OrdersConfig",
-    "comments.apps.CommentsConfig",
+    "blogs.apps.BlogsConfig",
 ]
 
 THIRD_PARTY_APPS = ["debug_toolbar","widget_tweaks",'taggit']
@@ -102,7 +102,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'erb8shop1',
+        'NAME': 'erb8shop2',
         'USER': 'postgres',
         'PASSWORD': '1111',
         'HOST': 'localhost'
