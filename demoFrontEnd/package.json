@@ -1,0 +1,11 @@
+{
+  "name": "e-restaurant-static",
+  "version": "1.0.0",
+  "description": "Simple HTML/JS/CSS E-Restaurant Frontend",
+  "scripts": {
+    "start": "npx http-server ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
