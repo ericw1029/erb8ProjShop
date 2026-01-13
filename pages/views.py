@@ -7,7 +7,7 @@ from django.http import HttpResponse
 # Create your views here.
 # todo
 # !
-## ericAdjustBranch test
+## ericAdjustBranch test new folder
 def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
