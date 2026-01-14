@@ -28,8 +28,8 @@
           </ul>
 
           <ul class="navbar-nav ml-auto">
-            <li>
-              <a class="navbar-brand" href="{% url 'blogs:post_list' %}">Blog</a>
+            <li {% if 'blogs' in request.path %} class="nav-item mr-3 active" {% else %}  class="nav-item mr-3" {% endif %}>
+              <a class="nav-link" href="{% url 'blogs:post_list' %}">Blog</a>
             </li>
             {% if user.is_authenticated %}            
               

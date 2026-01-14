@@ -3,180 +3,182 @@
 {% block title %}Blog Posts{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-8">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Blog Posts</h1>
-            {% if user.is_authenticated %}
-                <a href="{% url 'blogs:post_create' %}" class="btn btn-primary">
-                    <i class="bi bi-plus-circle"></i> New Post
-                </a>
+<div class="container h-auto">
+    <div class="row m-3">
+        <div class="col-md-8">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1>Blog Posts</h1>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'blogs:post_create' %}" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> New Post
+                    </a>
+                {% endif %}
+            </div>
+
+            <!-- Search Form (Optional) -->
+            <form method="get" action="{% url 'blogs:post_search' %}" class="mb-4">
+                <div class="input-group">
+                    <input type="text" name="searchContent" class="form-control" placeholder="Search posts..." value="{{ request.GET.searchContent }}">
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <i class="bi bi-search"></i> Search
+                    </button>
+                </div>
+            </form>
+
+            <!-- Posts List -->
+            {% if page_obj %}
+                {% for post in page_obj %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{% url 'blogs:post_detail' post.id %}" class="text-decoration-none">
+                                    {{ post.title }}
+                                </a>
+                            </h5>
+                            <p class="card-text text-muted small">
+                                <i class="bi bi-person"></i> {{ post.author.username }} | 
+                                <i class="bi bi-calendar"></i> {{ post.created_at|date:"M d, Y" }} | 
+                                <i class="bi bi-chat"></i> {{ post.comments.count }} comments
+                            </p>
+                            <p class="card-text">
+                                {{ post.content|truncatewords:50|linebreaks }}
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="{% url 'blogs:post_detail' post.id %}" class="btn btn-sm btn-outline-primary">
+                                    Read More <i class="bi bi-arrow-right"></i>
+                                </a>
+                                {% if user == post.author or user.is_staff %}
+                                    <div>
+                                        <a href="{% url 'blogs:post_edit' post.id %}" class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-pencil"></i> Edit
+                                        </a>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" 
+                                                data-toggle="modal"
+                                                data-url="{%url 'blogs:post_delete' post.id %}" 
+                                                data-target="#deletePostModal{{ post.id }}">
+                                            <i class="bi bi-trash"></i> Delete
+                                        </button>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Delete Post Modal -->
+                    <div class="modal fade" id="deletePostModal{{ post.id }}" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Delete Post</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete "{{ post.title }}"?
+                                    <div class="alert alert-warning mt-2">
+                                        <small>This action cannot be undone.</small>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <form method="post" action="{%url 'blogs:post_delete' post.id %}">
+                                        {% csrf_token %}                                   
+                                        <button type="submit" class="btn btn-danger">Delete Post</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <!-- Pagination -->
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                                    <i class="bi bi-chevron-double-left"></i> First
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                                    <i class="bi bi-chevron-left"></i> Previous
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link"><i class="bi bi-chevron-left"></i> Previous</span>
+                            </li>
+                        {% endif %}
+
+                        <li class="page-item active">
+                            <span class="page-link">
+                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                            </span>
+                        </li>
+
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                                    Next <i class="bi bi-chevron-right"></i>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                                    Last <i class="bi bi-chevron-double-right"></i>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">Next <i class="bi bi-chevron-right"></i></span>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+
+            {% else %}
+                <div class="alert alert-info">
+                    <h4 class="alert-heading">No Posts Found</h4>
+                    <p>There are no blog posts yet. {% if user.is_authenticated %}Be the first to <a href="{% url 'blogs:post_create' %}">create a post</a>!{% endif %}</p>
+                </div>
             {% endif %}
         </div>
 
-        <!-- Search Form (Optional) -->
-        <form method="get" action="{% url 'blogs:post_search' %}" class="mb-4">
-            <div class="input-group">
-                <input type="text" name="searchContent" class="form-control" placeholder="Search posts..." value="{{ request.GET.searchContent }}">
-                <button class="btn btn-outline-secondary" type="submit">
-                    <i class="bi bi-search"></i> Search
-                </button>
-            </div>
-        </form>
-
-        <!-- Posts List -->
-        {% if page_obj %}
-            {% for post in page_obj %}
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <a href="{% url 'blogs:post_detail' post.id %}" class="text-decoration-none">
-                                {{ post.title }}
-                            </a>
-                        </h5>
-                        <p class="card-text text-muted small">
-                            <i class="bi bi-person"></i> {{ post.author.username }} | 
-                            <i class="bi bi-calendar"></i> {{ post.created_at|date:"M d, Y" }} | 
-                            <i class="bi bi-chat"></i> {{ post.comments.count }} comments
-                        </p>
-                        <p class="card-text">
-                            {{ post.content|truncatewords:50|linebreaks }}
-                        </p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="{% url 'blogs:post_detail' post.id %}" class="btn btn-sm btn-outline-primary">
-                                Read More <i class="bi bi-arrow-right"></i>
-                            </a>
-                            {% if user == post.author or user.is_staff %}
-                                <div>
-                                    <a href="{% url 'blogs:post_edit' post.id %}" class="btn btn-sm btn-outline-secondary">
-                                        <i class="bi bi-pencil"></i> Edit
-                                    </a>
-                                    <button type="button" class="btn btn-sm btn-outline-danger" 
-                                            data-toggle="modal"
-                                            data-url="{%url 'blogs:post_delete' post.id %}" 
-                                            data-target="#deletePostModal{{ post.id }}">
-                                        <i class="bi bi-trash"></i> Delete
-                                    </button>
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
+        <!-- Sidebar -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="bi bi-info-circle"></i> About</h5>
                 </div>
-
-                <!-- Delete Post Modal -->
-                <div class="modal fade" id="deletePostModal{{ post.id }}" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Delete Post</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-                            <div class="modal-body">
-                                Are you sure you want to delete "{{ post.title }}"?
-                                <div class="alert alert-warning mt-2">
-                                    <small>This action cannot be undone.</small>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <form method="post" action="{%url 'blogs:post_delete' post.id %}">
-                                    {% csrf_token %}                                   
-                                    <button type="submit" class="btn btn-danger">Delete Post</button>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                <div class="card-body">
+                    <p>Welcome to our blog! Share your thoughts and engage in discussions.</p>
+                    {% if not user.is_authenticated %}
+                        <p>To create posts or leave comments, please <a href="{% url 'accounts:login' %}">log in</a>.</p>
+                    {% endif %}
                 </div>
-            {% endfor %}
-
-            <!-- Pagination -->
-            <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                    {% if page_obj.has_previous %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
-                                <i class="bi bi-chevron-double-left"></i> First
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
-                                <i class="bi bi-chevron-left"></i> Previous
-                            </a>
-                        </li>
-                    {% else %}
-                        <li class="page-item disabled">
-                            <span class="page-link"><i class="bi bi-chevron-left"></i> Previous</span>
-                        </li>
-                    {% endif %}
-
-                    <li class="page-item active">
-                        <span class="page-link">
-                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-                        </span>
-                    </li>
-
-                    {% if page_obj.has_next %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
-                                Next <i class="bi bi-chevron-right"></i>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
-                                Last <i class="bi bi-chevron-double-right"></i>
-                            </a>
-                        </li>
-                    {% else %}
-                        <li class="page-item disabled">
-                            <span class="page-link">Next <i class="bi bi-chevron-right"></i></span>
-                        </li>
-                    {% endif %}
-                </ul>
-            </nav>
-
-        {% else %}
-            <div class="alert alert-info">
-                <h4 class="alert-heading">No Posts Found</h4>
-                <p>There are no blog posts yet. {% if user.is_authenticated %}Be the first to <a href="{% url 'blogs:post_create' %}">create a post</a>!{% endif %}</p>
             </div>
-        {% endif %}
-    </div>
 
-    <!-- Sidebar -->
-    <div class="col-md-4">
-        <div class="card mb-4">
-            <div class="card-header">
-                <h5 class="mb-0"><i class="bi bi-info-circle"></i> About</h5>
-            </div>
-            <div class="card-body">
-                <p>Welcome to our blog! Share your thoughts and engage in discussions.</p>
-                {% if not user.is_authenticated %}
-                    <p>To create posts or leave comments, please <a href="{% url 'accounts:login' %}">log in</a>.</p>
-                {% endif %}
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0"><i class="bi bi-bar-chart"></i> Statistics</h5>
-            </div>
-            <div class="card-body">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Total Posts
-                        <span class="badge bg-primary rounded-pill">{{ page_obj.paginator.count }}</span>
-                    </li>
-                    {% if user.is_authenticated %}
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="bi bi-bar-chart"></i> Statistics</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Your Posts
-                            <span class="badge bg-success rounded-pill">{{ user.post_set.count }}</span>
+                            Total Posts
+                            <span class="badge bg-primary rounded-pill">{{ page_obj.paginator.count }}</span>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Your Comments
-                            <span class="badge bg-info rounded-pill">{{ user.comments.count }}</span>
-                        </li>
-                    {% endif %}
-                </ul>
+                        {% if user.is_authenticated %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Your Posts
+                                <span class="badge bg-success rounded-pill">{{ user.post_set.count }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Your Comments
+                                <span class="badge bg-info rounded-pill">{{ user.comments.count }}</span>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

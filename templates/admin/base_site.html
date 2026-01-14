@@ -2,12 +2,14 @@
 {% load static %} 
 {% block branding %}
 <link rel="stylesheet" href="{% static 'css/admin.css' %}" />
+<a href="{% url 'pages:product_list'%}">
 <img
   src="{% static 'img/logo.png' %}"
-  alt="Clinic Logo"
+  alt="ERB8 Logo"
   class="brand_img"
   height="35"
   width="45"
 />
-<span class="bands">ERB8 Project 1</span>
+</a>
+<span class="bands">ERB8 Shop </span>
 {% endblock branding %}
