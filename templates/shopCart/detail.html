@@ -37,10 +37,14 @@
               </form>
             </td>
             <td>
-              <form action="{% url 'cart:cart_remove' product.id %}" method="post">
-                <input type="submit" value="Remove">
-                {% csrf_token %}
-              </form>
+              <input
+                type="submit" 
+                data-url="{% url "cart:cart_remove" product.id %}"
+                data-toggle="modal"
+                data-target="#deleteConfirmModal"
+                data-id="{{product.id}}" 
+                value="Remove"
+              >
             </td>
             <td class="num">${{ item.price }}</td>
             <td class="num">${{ item.total_price }}</td>
@@ -59,4 +63,22 @@
     light">Continue shopping</a>
     <a href="{% url 'orders:order_create' %}" class="button">Checkout</a>
   </p>
+<!--delete modal-->
+<div class="modal fade" id="deleteConfirmModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Confirm DELETE</h5>
+        <button class="close" type="button" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to remove this product from your shopping cart?</p>
+        <a href="" class="btn btn-danger" id="confirmDeleteBtn">Yes</a>
+        <button class="btn btn-info" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

@@ -62,3 +62,7 @@ def dashboard(request):
         "contacts" : user_contacts        
     }
     return render(request,'accounts/dashboard.html',context)
+
+def password_reset(request):
+    print("password_reset")
+    return redirect('pages:index')

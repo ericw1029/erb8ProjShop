@@ -13,7 +13,14 @@
 {% block content %}
   <div class="product-detail">
     <div class="w-50 h-50">
-      <img src="{% if product.image %}{{ product.image.url }}{% else %} {% static 'img/no_image.png' %}{% endif %}">
+    {% if product.image %}
+    <a href="{{ product.image.url }}" data-lightbox="home-images">
+      <img src="{{ product.image.url }}">
+    </a>
+    {% else %}
+    <img src="{% static "img/no_image.png" %}">
+    {% endif %}
+      <!--<img src="{% if product.image %}{{ product.image.url }}{% else %} {% static 'img/no_image.png' %}{% endif %}">-->
     </div>
     <h1>{{ product.name }}</h1>
     <h2>

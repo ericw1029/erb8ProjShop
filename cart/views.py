@@ -20,8 +20,8 @@ def cart_add(request, product_id):
     return redirect('cart:cart_detail')
     #return render(request, 'shopCart/detail.html', {'cart': cart})
 
-@require_POST
 def cart_remove(request, product_id):
+    print("cart_remove")
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
     cart.remove(product)
