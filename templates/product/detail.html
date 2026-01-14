@@ -1,32 +1,207 @@
 {% extends 'base.html' %}
 {% load static %}
-<!-- load humanize -->
 {% load humanize %}
-<!-- index main content -->
-
-{% include 'partials/_alert.html' %}
 
 {% block title %}
-  {{ product.name }}
+  {{ product.name }} - E-Resto
 {% endblock %}
 
 {% block content %}
-  <div class="product-detail">
-    <div class="w-50 h-50">
-      <img src="{% if product.image %}{{ product.image.url }}{% else %} {% static 'img/no_image.png' %}{% endif %}">
+<style>
+    /* Smooth Scrolling */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Elegant Custom Scrollbar for Description */
+    .description-scroll {
+        max-height: 200px;
+        overflow-y: auto;
+        padding-right: 15px;
+        scrollbar-width: thin;
+        scrollbar-color: #0d6efd #f8f9fa;
+    }
+
+    .description-scroll::-webkit-scrollbar {
+        width: 6px;
+    }
+    .description-scroll::-webkit-scrollbar-track {
+        background: #f8f9fa;
+    }
+    .description-scroll::-webkit-scrollbar-thumb {
+        background-color: #0d6efd;
+        border-radius: 10px;
+    }
+
+    /* Professional Comment Link Styling */
+    .comment-stat-link {
+        transition: all 0.2s ease-in-out;
+        border: 1px solid #eee;
+    }
+    .comment-stat-link:hover {
+        background-color: #f0f7ff !important;
+        border-color: #0d6efd;
+        transform: translateY(-2px);
+    }
+
+    /* Avatar Circle */
+    .avatar-circle {
+        width: 45px;
+        height: 45px;
+        background-color: #e9ecef;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #495057;
+    }
+</style>
+
+<section class="py-5">
+    <div class="container">
+        {% include 'partials/_alert.html' %}
+        
+        <div class="row g-5 align-items-start">
+            <div class="col-lg-7">
+                <div class="rounded-4 overflow-hidden shadow-sm bg-light">
+                    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" 
+                         alt="{{ product.name }}"
+                         class="img-fluid w-100" 
+                         style="object-fit: cover; min-height: 500px; max-height: 700px;">
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <nav aria-label="breadcrumb" class="mb-3">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-primary">Menu</a></li>
+                        <li class="breadcrumb-item active text-muted">{{ product.category }}</li>
+                    </ol>
+                </nav>
+
+                <h1 class="display-5 fw-bold mb-2">{{ product.name }}</h1>
+                
+                <div class="mb-4 d-flex align-items-center">
+                    <a href="#comments-section" class="comment-stat-link btn btn-sm rounded-pill px-3 bg-white text-decoration-none">
+                        <i class="bi bi-chat-left-text me-2 text-primary"></i>
+                        <span class="fw-bold text-dark">{{ product.comments.count }} Reviews</span>
+                    </a>
+                    <span class="mx-3 text-muted opacity-50">|</span>
+                    <div class="text-warning small">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-half"></i>
+                        <span class="text-muted ms-1 fw-medium">(4.8)</span>
+                    </div>
+                </div>
+
+                <p class="h3 text-primary fw-bold mb-4">${{ product.price|floatformat:2|intcomma }}</p>
+                
+                <div class="description-scroll mb-4 text-muted lead">
+                    {{ product.description|linebreaks }}
+                </div>
+
+                <div class="card border-0 bg-light p-4 rounded-4 shadow-sm">
+                    <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="row g-3 align-items-end">
+                            <div class="col-4">
+                                <label class="fw-bold small text-uppercase text-muted d-block mb-2">Quantity</label>
+                                {{ cart_product_form.quantity }}
+                            </div>
+                            <div class="col-8">
+                                <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold py-3 shadow-sm">
+                                    <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        {{ cart_product_form.update }}
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5 pt-5 justify-content-center" id="comments-section">
+            <div class="col-lg-10">
+                <div class="d-flex justify-content-between align-items-center mb-5">
+                    <div>
+                        <h2 class="fw-bold mb-0">Guest Reviews</h2>
+                        <p class="text-muted">What others are saying about the {{ product.name }}</p>
+                    </div>
+                    <button class="btn btn-dark px-4 py-2 rounded-3 fw-bold" data-bs-toggle="collapse" data-bs-target="#addCommentForm">
+                        Leave a Review
+                    </button>
+                </div>
+
+                <div class="collapse mb-5" id="addCommentForm">
+                    <div class="card card-body border-0 bg-light rounded-4 p-4 shadow-sm">
+                        <h5 class="fw-bold mb-3">Your Review</h5>
+                        <form method="post">
+                            {% csrf_token %}
+                            <textarea class="form-control border-0 rounded-3 mb-3 p-3" rows="4" placeholder="How was the taste, presentation, and service?"></textarea>
+                            <button type="submit" class="btn btn-primary px-5 fw-bold">Submit Review</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    {% for comment in product.comments.all %}
+                    <div class="col-md-6">
+                        <div class="p-4 rounded-4 bg-white border h-100 shadow-sm">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="avatar-circle rounded-circle me-3">
+                                    {{ comment.user.username|slice:":1"|upper }}
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-0">{{ comment.user.username }}</h6>
+                                    <small class="text-muted">{{ comment.created_at|naturaltime }}</small>
+                                </div>
+                            </div>
+                            <p class="text-muted mb-0 italic">"{{ comment.body }}"</p>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="text-center py-5">
+                        <div class="display-1 text-light mb-3"><i class="bi bi-chat-quote"></i></div>
+                        <p class="text-muted">No reviews yet. Be the first to try this dish!</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
-    <h1>{{ product.name }}</h1>
-    <h2>
-      <a href="{{ product.category.get_absolute_url }}">
-        {{ product.category }}
-      </a>
-    </h2>
-    <p class="price">${{ product.price }}</p>
-    <form action="{% url 'cart:cart_add' product.id %}" method="post">
-      {{ cart_product_form }}
-      {% csrf_token %}
-      <input type="submit" value="Add to cart">
-    </form>
-    {{ product.description|linebreaks }}
-  </div>
+</section>
+
+<footer class="bg-dark text-white py-5 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h5 class="text-white fw-bold mb-3">E-Resto</h5>
+                <p class="small text-muted" style="line-height: 1.8;">
+                    Experience gourmet dining from the comfort of your home. We source local ingredients to create world-class flavors.
+                </p>
+            </div>
+            <div class="col-md-2 mb-4">
+                <h6 class="text-white fw-bold mb-3">Navigation</h6>
+                <ul class="list-unstyled small">
+                    <li class="mb-2"><a href="/" class="text-muted text-decoration-none hover-white">Home</a></li>
+                    <li class="mb-2"><a href="/menu" class="text-muted text-decoration-none hover-white">Full Menu</a></li>
+                    <li class="mb-2"><a href="#comments-section" class="text-muted text-decoration-none hover-white">Reviews</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4 ms-auto">
+                <h6 class="text-white fw-bold mb-3">Visit Us</h6>
+                <ul class="list-unstyled small text-muted">
+                    <li class="mb-2"><i class="bi bi-geo-alt me-2 text-primary"></i> 123 Restaurant Street, NY</li>
+                    <li class="mb-2"><i class="bi bi-telephone me-2 text-primary"></i> +1 (555) 123-4567</li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-top border-secondary pt-4 mt-4 text-center small text-muted">
+            &copy; 2026 E-Resto. All rights reserved.
+        </div>
+    </div>
+</footer>
 {% endblock content %}
