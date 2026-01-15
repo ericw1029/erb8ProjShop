@@ -49,6 +49,7 @@ APPLICATION_APPS= [
     'accounts.apps.AccountsConfig',       
     'cart.apps.CartConfig',    
     'orders.apps.OrdersConfig',
+    'reviews.apps.ReviewsConfig',
 ]
 
 THIRD_PARTY_APPS = ["debug_toolbar","widget_tweaks",'taggit']
@@ -172,6 +173,8 @@ MESSAGE_TAGS = {
     messages.SUCCESS:'success',
     messages.INFO: "",
     50: "critical",
+    messages.WARNING: 'warning',
+    messages.INFO: 'info',
 }
 
 CART_SESSION_ID = 'cart'

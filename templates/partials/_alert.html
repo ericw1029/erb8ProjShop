@@ -1,14 +1,25 @@
 {% if messages %}
-{% for message in messages %}
-<div class="container" id="message">
-    <div class="alert alert-dismissible text-center alert-{{message.tags}}" role="alert">
-        <button class="close" type="button" data-dismiss="alert">
-            <span aria-hidden="true">&times;</span>
-        </button>        
-        <strong>{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} Error: {% else %}
-        {{ message.tags | title }} {% endif %}</strong>
-        {{message}}
+    {% for message in messages %}
+    <div class="container mt-3" id="message-container">
+        <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show shadow-sm rounded-3 text-center" role="alert">
+            
+            <i class="bi {% if message.tags == 'success' %}bi-check-circle-fill{% else %}bi-exclamation-triangle-fill{% endif %} me-2"></i>
+            
+            <strong>{{ message.tags|title }}:</strong> {{ message }}
+            
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     </div>
-</div>
-{% endfor %}
+    {% endfor %}
 {% endif %}
+
+<script>
+    // Optional: Auto-hide the alert after 5 seconds
+    setTimeout(function() {
+        const alert = document.querySelector('.alert');
+        if (alert) {
+            const bsAlert = new bootstrap.Alert(alert);
+            bsAlert.close();
+        }
+    }, 5000);
+</script>
