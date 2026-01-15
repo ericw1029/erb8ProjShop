@@ -33,6 +33,10 @@
                 <!-- <a class="nav-link" href="{% url 'accounts:dashboard' %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (dashboard) </a> -->
                 <a class="nav-link" href="{% url 'pages:index' %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (dashboard) </a>
               </li>
+              <li {% if 'password_change' in request.path %} class="nav-item mr-3 active" {% else %}  class="nav-item mr-3" {% endif %}>
+                <!-- <a class="nav-link" href="{% url 'accounts:dashboard' %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (dashboard) </a> -->
+                <a class="nav-link" href="{% url 'accounts:password_change' %}"> <i class="fas fa-user-plus"></i> Change password</a>
+              </li>
               <!-- logout -->
                <li class="nav-item mr-3">
                   <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}" >
