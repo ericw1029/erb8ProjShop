@@ -4,7 +4,7 @@ from .forms import OrderCreateForm
 from cart.cart import Cart
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
+#from django.core.mail import send_mail
 
 
 @login_required
@@ -26,13 +26,13 @@ def order_create(request):
             # clear the cart
             cart.clear()
             #----------send mail---------------------------------------------
-            send_mail(
-                "ERB8 Shop",
-                f"Your order has been successfully completed. Your order number is {order.id}",
-                "ericw29Tech@gmail.com",
-                [checkoutEmail],
-                fail_silently=False,
-            )
+            # send_mail(
+            #     "ERB8 Shop",
+            #     f"Your order has been successfully completed. Your order number is {order.id}",
+            #     "",
+            #     [checkoutEmail],
+            #     fail_silently=False,
+            # )
             #---------end Send mail------------------------------------------
             return render(
                 request,

@@ -7,8 +7,8 @@ class OrderCreateForm(forms.ModelForm):
     last_name = forms.CharField(max_length=100)
     email = forms.EmailField()
     address = forms.CharField(max_length=100)
-    postal_code = forms.CharField(max_length=100)
-    city = forms.CharField(max_length=100)
+    #postal_code = forms.CharField(max_length=100)
+    #city = forms.CharField(max_length=100)
     
     class Meta:
         model = Order
