@@ -39,7 +39,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="bi bi-funnel"></i> Filter
                                 </button>
-                                <a href="{% url 'comment_list' %}" class="btn btn-outline-secondary">
+                                <a href="{% url 'blogs:comment_list' %}" class="btn btn-outline-secondary">
                                     <i class="bi bi-x-circle"></i> Clear
                                 </a>
                             </div>
@@ -50,25 +50,6 @@
         </div>
     </div>
 
-    <!-- Bulk Actions -->
-    {% if page_obj %}
-    <div class="row mb-3">
-        <div class="col">
-            <div class="btn-group">
-                <button type="button" class="btn btn-outline-success" id="bulkApproveBtn">
-                    <i class="bi bi-check-circle"></i> Approve Selected
-                </button>
-                <button type="button" class="btn btn-outline-warning" id="bulkDisapproveBtn">
-                    <i class="bi bi-x-circle"></i> Disapprove Selected
-                </button>
-                <button type="button" class="btn btn-outline-danger" id="bulkDeleteBtn">
-                    <i class="bi bi-trash"></i> Delete Selected
-                </button>
-            </div>
-        </div>
-    </div>
-    {% endif %}
-
     <!-- Comments Table -->
     <div class="row">
         <div class="col">
@@ -78,10 +59,7 @@
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
-                                    <tr>
-                                        <th width="50">
-                                            <input type="checkbox" id="selectAll" class="form-check-input">
-                                        </th>
+                                    <tr>                                       
                                         <th>Comment</th>
                                         <th>Author</th>
                                         <th>Post</th>
@@ -93,10 +71,6 @@
                                 <tbody>
                                     {% for comment in page_obj %}
                                     <tr class="{% if not comment.is_active %}table-danger{% elif not comment.is_approved %}table-warning{% endif %}">
-                                        <td>
-                                            <input type="checkbox" name="comment_ids" value="{{ comment.id }}" 
-                                                   class="form-check-input comment-checkbox">
-                                        </td>
                                         <td>
                                             <div class="comment-content">
                                                 <strong>{{ comment.content|truncatewords:20 }}</strong>
@@ -117,7 +91,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="{% url 'post_detail' comment.post.id %}" class="text-decoration-none">
+                                            <a href="{% url 'blogs:post_detail' comment.post.id %}" class="text-decoration-none">
                                                 {{ comment.post.title|truncatewords:5 }}
                                             </a>
                                         </td>
@@ -126,8 +100,8 @@
                                             <small class="text-muted">{{ comment.created_at|time }}</small>
                                         </td>
                                         <td>
-                                            <span class="badge {% if comment.is_active and comment.is_approved %}bg-success
-                                                              {% elif not comment.is_active %}bg-danger
+                                            <span class="badge {% if comment.is_active and comment.is_approved %} bg-success
+                                                              {% elif not comment.is_active %} bg-danger
                                                               {% else %}bg-warning{% endif %}">
                                                 {% if comment.is_active and comment.is_approved %}
                                                     Approved
@@ -140,19 +114,19 @@
                                         </td>
                                         <td>
                                             <div class="btn-group btn-group-sm">
-                                                <a href="{% url 'post_detail' comment.post.id %}#comment-{{ comment.id }}" 
+                                                <a href="{% url 'blogs:post_detail' comment.post.id %}#comment-{{ comment.id }}" 
                                                    class="btn btn-outline-primary" title="View">
-                                                    <i class="bi bi-eye"></i>
+                                                    <i class="fas fa-eye"></i>
                                                 </a>
-                                                <a href="{% url 'edit_comment' comment.id %}" 
+                                                <a href="{% url 'blogs:edit_comment' comment.id %}" 
                                                    class="btn btn-outline-secondary" title="Edit">
-                                                    <i class="bi bi-pencil"></i>
+                                                    <i class="fas fa-pencil-alt"></i>
                                                 </a>
                                                 <button type="button" class="btn btn-outline-danger" 
                                                         title="Delete" 
-                                                        data-bs-toggle="modal" 
-                                                        data-bs-target="#deleteModal{{ comment.id }}">
-                                                    <i class="bi bi-trash"></i>
+                                                        data-toggle="modal" 
+                                                        data-target="#deleteModal{{ comment.id }}">
+                                                    <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </div>
 
@@ -162,15 +136,15 @@
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title">Delete Comment</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                            <button type="button" class="btn-close" data-dismiss="modal"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <p class="mb-0">Are you sure?</p>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <form method="post" action="{% url 'delete_comment' comment.id %}">
+                                                            <form method="post" action="{% url 'blogs:delete_comment' comment.id %}">
                                                                 {% csrf_token %}
-                                                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                                                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
                                                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                                             </form>
                                                         </div>
@@ -237,7 +211,7 @@
                             <i class="bi bi-chat-dots display-1 text-muted"></i>
                             <h4 class="mt-3">No Comments Found</h4>
                             <p class="text-muted">There are no comments matching your filters.</p>
-                            <a href="{% url 'comment_list' %}" class="btn btn-primary">
+                            <a href="{% url 'blogs:comment_list' %}" class="btn btn-primary">
                                 <i class="bi bi-arrow-clockwise"></i> Reset Filters
                             </a>
                         </div>
@@ -310,41 +284,6 @@
         });
     });
 
-    // Bulk actions
-    document.getElementById('bulkApproveBtn').addEventListener('click', function() {
-        if (confirm('Approve selected comments?')) {
-            performBulkAction('approve');
-        }
-    });
-
-    document.getElementById('bulkDisapproveBtn').addEventListener('click', function() {
-        if (confirm('Disapprove selected comments?')) {
-            performBulkAction('disapprove');
-        }
-    });
-
-    document.getElementById('bulkDeleteBtn').addEventListener('click', function() {
-        if (confirm('Delete selected comments? This action cannot be undone.')) {
-            performBulkAction('delete');
-        }
-    });
-
-    function performBulkAction(action) {
-        const selectedIds = [];
-        document.querySelectorAll('.comment-checkbox:checked').forEach(checkbox => {
-            selectedIds.push(checkbox.value);
-        });
-
-        if (selectedIds.length === 0) {
-            alert('Please select at least one comment.');
-            return;
-        }
-
-        // Here you would typically make an AJAX request to your server
-        // For now, we'll just show an alert
-        alert(`${action} action would be performed on comments: ${selectedIds.join(', ')}`);
-        // In a real implementation, you would submit a form or make an AJAX request
-    }
 
     // Auto-dismiss alerts
     setTimeout(function() {

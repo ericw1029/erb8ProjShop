@@ -98,39 +98,7 @@
                     </div>
                 </form>
             </div>
-            
-            <!-- Additional Info -->
-            <div class="card-footer text-muted">
-                <small>
-                    <i class="bi bi-info-circle"></i>
-                    {% if comment %}
-                        This comment will be marked as inactive but remain in the database for record-keeping.
-                    {% elif post %}
-                        Post and all associated comments will be permanently removed from public view.
-                    {% endif %}
-                </small>
-            </div>
         </div>
-        
-        <!-- Alternative Actions -->
-        {% if comment and comment.author == user %}
-        <div class="card mt-4">
-            <div class="card-header">
-                <h6 class="mb-0">Alternative Actions</h6>
-            </div>
-            <div class="card-body">
-                <p class="card-text">Instead of deleting, you can:</p>
-                <div class="d-grid gap-2">
-                    <a href="{% url 'blogs:edit_comment' comment.id %}" class="btn btn-outline-primary">
-                        <i class="bi bi-pencil"></i> Edit this Comment
-                    </a>
-                    <button type="button" class="btn btn-outline-secondary" onclick="history.back()">
-                        <i class="bi bi-x-circle"></i> Keep as is
-                    </button>
-                </div>
-            </div>
-        </div>
-        {% endif %}
     </div>
 </div>
 {% endblock %}
@@ -151,50 +119,4 @@
         border-left-color: #dc3545;
     }
 </style>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-    // Confirm delete by typing "DELETE"
-    function checkConfirmation(value) {
-        const deleteBtn = document.getElementById('deleteBtn');
-        if (value.toUpperCase() === 'DELETE') {
-            deleteBtn.disabled = false;
-            deleteBtn.classList.remove('btn-secondary');
-            deleteBtn.classList.add('btn-danger');
-        } else {
-            deleteBtn.disabled = true;
-            deleteBtn.classList.remove('btn-danger');
-            deleteBtn.classList.add('btn-secondary');
-        }
-    }
-    
-    // Add some drama to the delete button
-    document.addEventListener('DOMContentLoaded', function() {
-        const deleteBtn = document.getElementById('deleteBtn');
-        if (deleteBtn) {
-            deleteBtn.addEventListener('mouseover', function() {
-                if (!this.disabled) {
-                    this.innerHTML = '<i class="bi bi-exclamation-triangle"></i> Are you sure?';
-                }
-            });
-            
-            deleteBtn.addEventListener('mouseout', function() {
-                if (!this.disabled) {
-                    this.innerHTML = '<i class="bi bi-trash"></i> Confirm Delete';
-                }
-            });
-        }
-    });
-    
-    // Prevent accidental navigation
-    window.addEventListener('beforeunload', function(e) {
-        const confirmationInput = document.getElementById('confirmationText');
-        if (confirmationInput && confirmationInput.value.toUpperCase() === 'DELETE') {
-            e.preventDefault();
-            e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
-            return e.returnValue;
-        }
-    });
-</script>
 {% endblock %}
