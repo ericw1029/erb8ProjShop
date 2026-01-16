@@ -17,7 +17,7 @@
           <ul class="navbar-nav">
             {% comment %} <li>{{ request.path }}</li> {% endcomment %}
             <li {% if '/' == request.path %} class="nav-item active mr-3" {% else %} class="nav-item  mr-3" {% endif %}>
-              <a class="nav-link" href={% url 'pages:index' %}>Hoome</a>
+              <a class="nav-link" href={% url 'pages:index' %}>Home</a>
             </li>
             <li {% if '/about' == request.path %} class="nav-item active mr-3" {% else %} class="nav-item  mr-3" {% endif %}>
               <a class="nav-link" href={% url 'pages:about' %}>About</a>
