@@ -5,7 +5,11 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Thank you</h1>
-  <p>Your order has been successfully completed. Your order number is
-  <strong>{{ order.id }}</strong>.</p>
+  <div class="container" style="height:100%;">
+    <h1>Thank you</h1>
+    <p>Your order has been successfully completed. Your order number is
+    <strong>{{ order.id }}</strong>.</p>
+    <p>Confirmation email will be sent to your registered email {{checkoutEmail}}</p>
+  </div>
+  
 {% endblock %}

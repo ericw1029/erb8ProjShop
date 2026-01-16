@@ -5,22 +5,87 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Checkout</h1>
-  <div class="order-info">
-    <h3>Your order</h3>
-    <ul>
-      {% for item in cart %}
-        <li>
-          {{ item.quantity }}x {{ item.product.name }}
-          <span>${{ item.total_price }}</span>
-        </li>
-      {% endfor %}
-    </ul>
-    <p>Total: ${{ cart.get_total_price }}</p>
+   
+  <div class="container mb-20 p-2">
+    <h1>Checkout</h1>
+    <div class="order-info">
+      <h3>Your order</h3>
+      <ul>
+        {% for item in cart %}
+          <li>
+            {{ item.quantity }}x {{ item.product.name }}
+            <span>${{ item.total_price }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+      <p>Total: ${{ cart.get_total_price }}</p>
+    </div>
+    
+    <form method="post" action="{% url 'orders:order_create' %}" class="shadow-lg space-y-6 p-10 w-96">
+          {% csrf_token %}
+          <div class="row form-row">
+              <div class="col-md-6 mb-3">                 
+                  <div class="input-group-icon">
+                      <i class="fas fa-user"></i> <label for="id_first_name" class="form-label ml-1">First Name <span class="required-asterisk">*</span></label>
+                      <input type="text" name="first_name" class="form-control prefilled-value" id="id_first_name" value="{{current_user.first_name}}" readonly>
+                      <div class="form-note">Pre-filled from your account</div>
+                  </div>
+              </div>
+            </div>
+            <div class="row form-row">
+              <div class="col-md-6 mb-3">                 
+                  <div class="input-group-icon">
+                    <i class="fas fa-user"></i> <label for="id_last_name" class="form-label ml-1">Last Name <span class="required-asterisk">*</span></label>
+                    <input type="text" name="last_name" class="form-control prefilled-value" id="id_last_name" value="{{current_user.last_name}}" readonly>
+                  </div>
+                  <div class="form-note">Pre-filled from your account</div>
+              </div>
+            </div>            
+            <div class="row form-row">
+              <div class="col-md-6 mb-3">               
+                <div class="input-group-icon">
+                    <i class="fas fa-home"></i> <label for="id_address" class="form-label ml-1">Address <span class="required-asterisk">*</span></label>
+                    <input type="text" name="address" class="form-control" id="id_address" placeholder="Enter your street address" value="{{current_user.address}}" required/>
+                </div>
+                <div class="form-note">Please include apartment/suite number if applicable</div>
+              </div>
+            </div>
+            <div class="row form-row">
+              <div class="col-md-6 mb-3">
+                  
+                  <div class="input-group-icon">
+                    <i class="fas fa-envelope"></i><label for="id_email" class="form-label">Email <span class="required-asterisk">*</span></label>
+                    <input type="text" name="email" class="form-control prefilled-value" id="id_email" value="{{current_user.email}}" required>
+                  </div>
+                  <div class="form-note">Pre-filled from your account</div>
+              </div>
+            </div>
+            <div class="row form-row" style="display:normal;">
+              <div class="col-md-6 mb-3">                  
+                  <div class="input-group-icon">
+                    <i class="fas fa-map-marker-alt"></i><label for="id_postal_code" class="form-label ml-1">Postal code <span class="required-asterisk">*</span></label>
+                    <input type="text" name="postal_code" class="form-control prefilled-value" id="id_postal_code" value="{{current_user.postal_code}}" required>
+                  </div>
+                  <div class="form-note">Pre-filled from your account</div>
+              </div>
+            </div>
+            <div class="row form-row" style="display:normal;">
+              <div class="col-md-6 mb-3">
+                  
+                  <div class="input-group-icon">
+                    <i class="fas fa-city"></i><label for="id_city" class="form-label ml-1">City<span class="required-asterisk">*</span></label>
+                    <input type="text" name="city" class="form-control prefilled-value" id="id_city" value="{{current_user.city}}" required>
+                  </div>
+                  <div class="form-note">Pre-filled from your account</div>
+              </div>
+            </div>
+            
+            <button type="submit" class="btn btn-place-order bg-info">
+                <i class="fas fa-check-circle me-2"></i>Place Order
+            </button>
+          
+          
+    </form>
   </div>
-  <form method="post" class="order-form">
-    {{ form.as_p }}
-    <p><input type="submit" value="Place order"></p>
-    {% csrf_token %}
-  </form>
+  
 {% endblock %}
