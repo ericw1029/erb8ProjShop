@@ -49,13 +49,13 @@ APPLICATION_APPS= [
     'accounts.apps.AccountsConfig',       
     'cart.apps.CartConfig',    
     'orders.apps.OrdersConfig',
+    "blogs.apps.BlogsConfig",
     'reviews.apps.ReviewsConfig',
 ]
 
 THIRD_PARTY_APPS = ["debug_toolbar","widget_tweaks",'taggit']
 
 INSTALLED_APPS = DJANGO_APPS + APPLICATION_APPS + THIRD_PARTY_APPS
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

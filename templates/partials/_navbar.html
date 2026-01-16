@@ -17,21 +17,28 @@
           <ul class="navbar-nav">
             {% comment %} <li>{{ request.path }}</li> {% endcomment %}
             <li {% if '/' == request.path %} class="nav-item active mr-3" {% else %} class="nav-item  mr-3" {% endif %}>
-              <a class="nav-link" href={% url 'pages:index' %}>Home</a>
+              <a class="nav-link" href={% url 'pages:product_list' %}>Home</a>
             </li>
             <li {% if '/about' == request.path %} class="nav-item active mr-3" {% else %} class="nav-item  mr-3" {% endif %}>
               <a class="nav-link" href={% url 'pages:about' %}>About</a>
             </li>
-            <li {% if '/listings/' == request.path %} class="nav-item active mr-3" {% else %} class="nav-item  mr-3" {% endif %}>
-              <a class="nav-link" href={% url 'pages:index' %}>Inpatient medical services</a>
+            <li {% if '/comments/' == request.path %} class="nav-item active mr-3" {% else %} class="nav-item  mr-3" {% endif %} hidden>
+              <a class="nav-link" href={% url 'pages:index' %}>Comments</a>
             </li>
           </ul>
 
           <ul class="navbar-nav ml-auto">
-            {% if user.is_authenticated %}
+            <li>
+              <a class="navbar-brand" href="{% url 'blogs:post_list' %}">Blog</a>
+            </li>
+            {% if user.is_authenticated %}            
+              
               <li {% if 'dashboard' in request.path %} class="nav-item mr-3 active" {% else %}  class="nav-item mr-3" {% endif %}>
                 <!-- <a class="nav-link" href="{% url 'accounts:dashboard' %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (dashboard) </a> -->
                 <a class="nav-link" href="{% url 'pages:index' %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (dashboard) </a>
+              </li>
+              <li>
+                <a class="nav-link" href="{% url 'blogs:post_create' %}">New Post</a>
               </li>
               <!-- logout -->
                <li class="nav-item mr-3">

@@ -8,7 +8,7 @@ from django.core.paginator import Paginator
 # Create your views here.
 # todo
 # !
-
+## ericAdjustBranch test new folder eric
 def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
@@ -16,12 +16,16 @@ def product_list(request, category_slug=None):
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
-    #return HttpResponse("product_list")
-    return render(request,'pages/index.html',{'category': category,'categories': categories,'products': products})
+    # return HttpResponse("product_list")
+    return render(
+        request,
+        "pages/index.html",
+        {"category": category, "categories": categories, "products": products},
+    )
 
 
 def product_detail(request, id, slug):
-    product = get_object_or_404(Product,id=id,slug=slug,available=True)
+    product = get_object_or_404(Product, id=id, slug=slug, available=True)
     cart_product_form = CartAddProductForm()
 
     # Get all reviews
@@ -51,10 +55,11 @@ def product_detail(request, id, slug):
 
 
 def index(request):
-    print(request,request.path)
-    #return HttpResponse("Pages-> index")
-    return render(request,'pages/index.html')
+    print(request, request.path)
+    # return HttpResponse("Pages-> index")
+    return render(request, "pages/index.html")
+
 
 def about(request):
-    #return HttpResponse("Pages-> about")
-    return render(request,'pages/about.html')
+    # return HttpResponse("Pages-> about")
+    return render(request, "pages/about.html")

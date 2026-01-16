@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if form.instance.id %}Edit Post{% else %}Create New Post{% endif %}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">
+                    <i class="bi bi-pencil-square"></i>
+                    {% if form.instance.id %}Edit Post{% else %}Create New Post{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {% for error in form.non_field_errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <!-- Title Field -->
+                    <div class="mb-3">
+                        <label for="id_title" class="form-label">Title</label>
+                        {{ form.title }}
+                        {% if form.title.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.title.errors %}
+                                    <small><i class="bi bi-exclamation-circle"></i> {{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">Choose a descriptive title for your post.</div>
+                    </div>
+
+                    <!-- Content Field -->
+                    <div class="mb-3">
+                        <label for="id_content" class="form-label">Content</label>
+                        {{ form.content }}
+                        {% if form.content.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.content.errors %}
+                                    <small><i class="bi bi-exclamation-circle"></i> {{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">Write your post content here. You can use basic HTML.</div>
+                    </div>
+
+                    <!-- Preview Button (Optional) -->
+                    <div class="mb-3" hidden>
+                        <button type="button" class="btn btn-outline-secondary" id="previewBtn">
+                            <i class="bi bi-eye"></i> Preview
+                        </button>
+                    </div>
+
+                    <!-- Preview Area -->
+                    <div class="mb-3 d-none" id="previewArea">
+                        <label class="form-label">Preview</label>
+                        <div class="border rounded p-3 bg-light" id="contentPreview"></div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{% if form.instance.id %}{% url 'blogs:post_detail' form.instance.id %}{% else %}{% url 'blogs:post_list' %}{% endif %}" 
+                           class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Cancel
+                        </a>
+                        <div>
+                            <button type="submit" name="draft" value="true" class="btn btn-outline-primary" hidden>
+                                <i class="bi bi-save"></i> Save as Draft
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-circle"></i> 
+                                {% if form.instance.id %}Update Post{% else %}Publish Post{% endif %}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tips Card -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-lightbulb"></i> Writing Tips</h5>
+            </div>
+            <div class="card-body">
+                <ul class="mb-0">
+                    <li>Use clear and descriptive titles</li>
+                    <li>Break content into paragraphs for better readability</li>
+                    <li>Proofread before publishing</li>
+                    <li>Add images or examples where appropriate</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Preview functionality
+    document.getElementById('previewBtn').addEventListener('click', function() {
+        const content = document.getElementById('id_content').value;
+        const previewArea = document.getElementById('previewArea');
+        const contentPreview = document.getElementById('contentPreview');
+        
+        if (content.trim()) {
+            // Simple line break conversion for preview
+            contentPreview.innerHTML = content.replace(/\n/g, '<br>');
+            previewArea.classList.remove('d-none');
+        }
+    });
+
+    // Auto-resize textarea
+    const textarea = document.getElementById('id_content');
+    if (textarea) {
+        textarea.style.height = '300px';
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+    }
+
+    // Focus on title field when page loads
+    document.getElementById('id_title').focus();
+</script>
+{% endblock %}

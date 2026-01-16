@@ -14,7 +14,7 @@ def login(request):
             auth.login(request,user)
             messages.success(request,"Your are now logged in")
             #return redirect('accounts:dashboard')
-            return redirect('pages:index')
+            return redirect("pages:product_list")
         else:
             messages.error(request,"Invalid credentials")
             return redirect('accounts:login')

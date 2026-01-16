@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <!-- Post Content -->
+        <article class="card mb-4">
+            <div class="card-body">
+                <h1 class="card-title">{{ post.title }}</h1>
+                <p class="text-muted">
+                    By {{ post.author.username }} | {{ post.created_at|date:"F d, Y" }}
+                </p>
+                <hr>
+                <p class="card-text">{{ post.content|linebreaks }}</p>
+                
+                {% if user == post.author %}
+                    <div class="mt-3">
+                        <a href="{% url 'blogs:post_edit' post.id %}" class="btn btn-sm btn-outline-secondary">Edit Post</a>
+                    </div>
+                {% endif %}
+            </div>
+        </article>
+
+        <!-- Comments Section -->
+        <div class="card">
+            <div class="card-header">
+                <h5>Comments ({{ total_comments }})</h5>
+            </div>
+            <div class="card-body">
+                <!-- Comment Form -->
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'blogs:add_comment' post.id %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_content" class="form-label">Add a comment:</label>
+                            {{ form.content }}
+                            {% if form.content.errors %}
+                                <div class="text-danger">
+                                    {{ form.content.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Post Comment</button>
+                    </form>
+                {% else %}
+                    <p class="text-muted">
+                        <a href="{% url 'accounts:login' %}?next={{ request.path }}">Log in</a> to leave a comment.
+                    </p>
+                {% endif %}
+
+                <hr>
+
+                <!-- Comments List -->
+                <div class="comments mt-4">
+                    {% for comment in comments %}
+                        <div class="comment mb-3 pb-3 border-bottom">
+                            <div class="d-flex justify-content-between">
+                                <strong>{{ comment.author.username }}</strong>
+                                <small class="text-muted">{{ comment.created_at|timesince }} ago</small>
+                            </div>
+                            <p class="mb-1 mt-2">{{ comment.content }}</p>
+                            
+                            <!-- Comment Actions -->
+                            <div class="comment-actions mt-2">
+                                {% if user.is_authenticated %}
+                                    <a href="{% url 'blogs:reply_comment' comment.id %}" class="btn btn-sm btn-outline-secondary">
+                                        Reply
+                                    </a>
+                                {% endif %}
+                                
+                                {% if user == comment.author or user.is_staff %}
+                                    <a href="{% url 'blogs:edit_comment' comment.id %}" class="btn btn-sm btn-outline-primary">
+                                        Edit
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" 
+                                            data-toggle="modal"
+                                            data-url="{% url 'blogs:delete_comment' comment.id %}" 
+                                            data-target="#deleteCommentModal{{ comment.id }}"
+                                            data-id="{{comment.id}}">
+                                        Delete
+                                    </button>
+                                {% endif %}
+                            </div>
+
+                            <!-- Replies -->
+                            {% if comment.replies.all %}
+                                <div class="replies ms-4 mt-3">
+                                    {% for reply in comment.replies.all %}
+                                        <div class="reply border-start ps-3 mb-2">
+                                            <div class="d-flex justify-content-between">
+                                                <small><strong>{{ reply.author.username }}</strong></small>
+                                                <small class="text-muted">{{ reply.created_at|timesince }} ago</small>
+                                            </div>
+                                            <small>{{ reply.content }}</small>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            <!-- Delete Modal -->
+                            <div class="modal fade" id="deleteCommentModal{{ comment.id }}" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Delete Comment</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure you want to delete this comment?
+                                        </div>
+                                        <div class="modal-footer">                                               
+                                                <a href="{% url 'blogs:delete_comment' comment.id %}" class="btn btn-danger" id="confirmDeleteBtn">Delete</a>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p class="text-muted">No comments yet. Be the first to comment!</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<!-- {% block extra_js %} -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
+<!-- {% endblock %} -->

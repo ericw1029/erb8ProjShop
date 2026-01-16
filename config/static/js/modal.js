@@ -14,5 +14,4 @@ $(document).ready(function(){
             window.location.href=$("#confirmDeleteBtn").attr("href");
         },300);
     });
-
 });
