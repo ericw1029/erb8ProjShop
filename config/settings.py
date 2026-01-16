@@ -50,6 +50,7 @@ APPLICATION_APPS= [
     'cart.apps.CartConfig',    
     'orders.apps.OrdersConfig',
     'payment.apps.PaymentConfig',
+    'coupons.apps.CouponsConfig',
 ]
 
 THIRD_PARTY_APPS = ["debug_toolbar","widget_tweaks",'taggit']
