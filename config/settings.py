@@ -44,18 +44,18 @@ DJANGO_APPS = [
 ]
 
 #Let Django app page do registry resources of the url link
-APPLICATION_APPS = [
-    "pages.apps.PagesConfig",
-    "accounts.apps.AccountsConfig",
-    "cart.apps.CartConfig",
-    "orders.apps.OrdersConfig",
+APPLICATION_APPS= [
+    'pages.apps.PagesConfig',   
+    'accounts.apps.AccountsConfig',       
+    'cart.apps.CartConfig',    
+    'orders.apps.OrdersConfig',
     "blogs.apps.BlogsConfig",
+    'reviews.apps.ReviewsConfig',
 ]
 
 THIRD_PARTY_APPS = ["debug_toolbar","widget_tweaks",'taggit']
 
 INSTALLED_APPS = DJANGO_APPS + APPLICATION_APPS + THIRD_PARTY_APPS
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -102,7 +102,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'erb8shop2',
+        'NAME': 'erb8shop1',
         'USER': 'postgres',
         'PASSWORD': '1111',
         'HOST': 'localhost'
@@ -173,6 +173,8 @@ MESSAGE_TAGS = {
     messages.SUCCESS:'success',
     messages.INFO: "",
     50: "critical",
+    messages.WARNING: 'warning',
+    messages.INFO: 'info',
 }
 
 CART_SESSION_ID = 'cart'

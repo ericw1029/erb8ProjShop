@@ -94,3 +94,17 @@ img {
     font-size: 30px; }
   #showcase-inner h1 {
     font-size: 40px; } }
+
+
+
+/* Blue by default, Yellow on hover */
+.edit-btn-custom {
+    background-color: #0d6efd; /* Bootstrap Blue */
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.edit-btn-custom:hover {
+    background-color: #ffc107; /* Bootstrap Warning Yellow */
+    color: #000; /* Dark text for better contrast on yellow */
+}
