@@ -62,3 +62,16 @@ def dashboard(request):
         "contacts" : user_contacts        
     }
     return render(request,'accounts/dashboard.html',context)
+
+def password_reset_confirm(request):
+    return render(request,'accounts/password_reset_confirm.html')
+
+def password_reset_complete(request):
+    return render(request,'accounts/password_reset_complete.html')
+
+def password_reset_done(request):
+    return render(request,'accounts/password_reset_done.html')
+
+def password_change_done(request):
+    return render(request,'accounts/password_change_done.html')
+

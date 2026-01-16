@@ -51,6 +51,8 @@ APPLICATION_APPS= [
     'orders.apps.OrdersConfig',
     "blogs.apps.BlogsConfig",
     'reviews.apps.ReviewsConfig',
+    'payment.apps.PaymentConfig',
+    'coupons.apps.CouponsConfig',
 ]
 
 THIRD_PARTY_APPS = ["debug_toolbar","widget_tweaks",'taggit']
@@ -102,9 +104,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'erb8shop1',
+        'NAME': 'erb8shop',
         'USER': 'postgres',
-        'PASSWORD': '1111',
+        'PASSWORD': '1234',
         'HOST': 'localhost'
     }
 }
@@ -178,6 +180,15 @@ MESSAGE_TAGS = {
 }
 
 CART_SESSION_ID = 'cart'
+
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASS')
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

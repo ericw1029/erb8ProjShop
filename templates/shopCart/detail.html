@@ -37,26 +37,74 @@
               </form>
             </td>
             <td>
-              <form action="{% url 'cart:cart_remove' product.id %}" method="post">
-                <input type="submit" value="Remove">
-                {% csrf_token %}
-              </form>
+              <input
+                type="submit" 
+                data-url="{% url "cart:cart_remove" product.id %}"
+                data-toggle="modal"
+                data-target="#deleteConfirmModal"
+                data-id="{{product.id}}" 
+                value="Remove"
+              >
             </td>
             <td class="num">${{ item.price }}</td>
             <td class="num">${{ item.total_price }}</td>
           </tr>
         {% endwith %}
       {% endfor %}
+      {% if cart.coupon %}
+        <tr class="subtotal">
+          <td>Subtotal</td>
+          <td colspan="4"></td>
+          <td class="num">${{ cart.get_total_price|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>
+            "{{ cart.coupon.code }}" coupon
+            ({{ cart.coupon.discount }}% off)
+          </td>
+          <td colspan="4"></td>
+          <td class="num neg">
+            - ${{ cart.get_discount|floatformat:2 }}
+          </td>
+        </tr>
+      {% endif %}
       <tr class="total">
         <td>Total</td>
         <td colspan="4"></td>
-        <td class="num">${{ cart.get_total_price }}</td>
+        <td class="num">
+          ${{ cart.get_total_price_after_discount|floatformat:2 }}
+        </td>
       </tr>
     </tbody>
   </table>
+
+  <p>Apply a coupon:</p>
+  <form action="{% url "coupons:apply" %}" method="post">
+    {{ coupon_apply_form }}
+    <input type="submit" value="Apply">
+    {% csrf_token %}
+  </form>
   <p class="text-right">
     <a href="{% url 'pages:product_list' %}" class="button
     light">Continue shopping</a>
     <a href="{% url 'orders:order_create' %}" class="button">Checkout</a>
   </p>
+<!--delete modal-->
+<div class="modal fade" id="deleteConfirmModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Confirm DELETE</h5>
+        <button class="close" type="button" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to remove this product from your shopping cart?</p>
+        <a href="" class="btn btn-danger" id="confirmDeleteBtn">Yes</a>
+        <button class="btn btn-info" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

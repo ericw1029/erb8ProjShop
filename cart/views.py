@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from pages.models import Product
+from coupons.forms import CouponApplyForm
 from .cart import Cart
 from .forms import CartAddProductForm
 
@@ -20,8 +21,8 @@ def cart_add(request, product_id):
     return redirect('cart:cart_detail')
     #return render(request, 'shopCart/detail.html', {'cart': cart})
 
-@require_POST
 def cart_remove(request, product_id):
+    print("cart_remove")
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
     cart.remove(product)
@@ -36,4 +37,5 @@ def cart_detail(request):
                             'quantity': item['quantity'],
                             'override': True
                         })
-    return render(request, 'shopCart/detail.html', {'cart': cart})
+    coupon_apply_form = CouponApplyForm()
+    return render(request, 'shopCart/detail.html', {'cart': cart, 'coupon_apply_form': coupon_apply_form})

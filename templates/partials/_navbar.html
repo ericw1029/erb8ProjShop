@@ -37,8 +37,13 @@
                 <!-- <a class="nav-link" href="{% url 'accounts:dashboard' %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (dashboard) </a> -->
                 <a class="nav-link" href="{% url 'pages:index' %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (dashboard) </a>
               </li>
-              <li>
-                <a class="nav-link" href="{% url 'blogs:post_create' %}">New Post</a>
+              
+              {% comment %} <li>
+                <a class="nav-link" href="{% url 'blogs:post_create' %}">New Post</a> {% endcomment %}
+
+              <li {% if 'password_change' in request.path %} class="nav-item mr-3 active" {% else %}  class="nav-item mr-3" {% endif %}>
+                <!-- <a class="nav-link" href="{% url 'accounts:dashboard' %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (dashboard) </a> -->
+                <a class="nav-link" href="{% url 'accounts:password_change' %}"> <i class="fas fa-user-plus"></i> Change password</a>
               </li>
               <!-- logout -->
                <li class="nav-item mr-3">
@@ -56,7 +61,11 @@
                   <i class="fas fa-sign-in-alt"></i>
                   Login</a>
               </li> -->
-            {% else %}            
+            {% else %}   
+              <li {% if 'password_reset' in request.path %} class="nav-item mr-3 active" {% else %}  class="nav-item mr-3" {% endif %}>
+                <a class="nav-link" href="{% url 'accounts:password_reset' %}">
+                  <i class="fas fa-user-plus"></i> Forgot password</a>
+              </li>
               <li {% if 'register' in request.path %} class="nav-item mr-3 active" {% else %}  class="nav-item mr-3" {% endif %}>
                 <a class="nav-link" href="{% url 'accounts:register' %}">
                   <i class="fas fa-user-plus"></i> Register</a>

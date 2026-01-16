@@ -71,6 +71,99 @@
         <div class="d-flex align-items-center mb-2">
             <span class="bg-primary text-white rounded p-1 me-2 d-flex align-items-center justify-content-center fw-bold" style="width: 35px; height: 35px;">E</span>
             <h1 class="display-5 fw-bold mb-0">{% if category %}{{ category.name }}{% else %}Full Menu{% endif %}</h1>
+            <div id="main" class="product-list" style="border:1px transparent solid;">   
+              <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
+              <div class="container" style="display:flex;flex-wrap:wrap;">
+                {% for product in page.object_list %}
+                  <div class="item" style="border:1px transparent solid;">
+                    <a href="{{ product.get_absolute_url }}">
+                      <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+                    </a>
+                    <a href="{{product.get_absolute_url }}">{{ product.name }}</a>
+                    <br>
+                    ${{ product.price }}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+      </section>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        {% if page.has_other_pages %}
+        <ul class="pagination">
+          {% if page.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page.previous_page_number }}">&laquo;</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#">&laquo;</a>
+          </li>
+          {% endif %}
+          <!-- for loop page number -->
+          {% for i in page.paginator.page_range %}
+          <!-- page number -->
+          {% if page.number == i %}
+          <li class="page-item active">
+            <a class="page-link">{{ i }}</a>
+          </li>
+          {% else %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+          </li>
+          {% endif %}
+          {% endfor %}
+          {% if page.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page.next_page_number }}">&raquo;</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#">&raquo;</a>
+          </li>
+          {% endif %}
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+      <!-- index page bottom Consulting Services,Inpatient Services,Primary Care Package -->
+      <section id="services" class="py-5 bg-secondary text-white">
+        <div class="container">
+          <div class="row text-center">
+            <div class="col-md-4">
+              <i class="fas fa-comment fa-4x mr-4"></i>
+              <hr />
+              <h3>Consulting Services</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt,
+                debitis nam! Repudiandae, provident iste consequatur hic dignissimos
+                ratione ea quae.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <i class="fas fa-home fa-4x mr-4"></i>
+              <hr />
+              <h3>Inpatient Services</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt,
+                debitis nam! Repudiandae, provident iste consequatur hic dignissimos
+                ratione ea quae.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <i class="fas fa-suitcase fa-4x mr-4"></i>
+              <hr />
+              <h3>Primary Care Package</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt,
+                debitis nam! Repudiandae, provident iste consequatur hic dignissimos
+                ratione ea quae.
+              </p>
+            </div>
+          </div>
         </div>
         <p class="lead text-muted">Explore our curated selection of gourmet dishes.</p>
     </div>
