@@ -70,12 +70,16 @@ def register(request):
     else:
         return render(request,'accounts/register.html')
 
+# def dashboard(request):
+#     user_contacts = Contact.objects.all().filter(user_id=request.user.id).order_by('-contact_date')
+#     context = {
+#         "contacts" : user_contacts        
+#     }
+#     return render(request,'accounts/dashboard.html',context)
+
 def dashboard(request):
-    user_contacts = Contact.objects.all().filter(user_id=request.user.id).order_by('-contact_date')
-    context = {
-        "contacts" : user_contacts        
-    }
-    return render(request,'accounts/dashboard.html',context)
+    
+    return redirect("pages/product_list.html")
 
 def password_reset_confirm(request):
     return render(request,'accounts/password_reset_confirm.html')
@@ -106,7 +110,7 @@ def change_password(request):
             messages.success(request, "Your password has been changed successfully!")
 
             # Redirect to profile or success page
-            return redirect("pages:product_list")  # Change to your desired redirect
+            return redirect("accounts:change_password_done")  # Change to your desired redirect
     else:
         form = CustomPasswordChangeForm(user=request.user)
 
