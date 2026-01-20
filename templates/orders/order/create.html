@@ -17,8 +17,18 @@
             <span>${{ item.total_price }}</span>
           </li>
         {% endfor %}
+        {% if cart.coupon %}
+          <li>
+            "{{ cart.coupon.code }}" ({{ cart.coupon.discount }}% off)
+            <span class="neg">- ${{ cart.get_discount|floatformat:2 }}</span>
+          </li>
+        {% endif %}
       </ul>
-      <p>Total: ${{ cart.get_total_price }}</p>
+      {% if cart.coupon is None %}
+        <p>Total: ${{ cart.get_total_price }}</p>
+      {% else %}
+        <p>Total: ${{ cart.get_total_price_after_discount|floatformat:2 }}</p>
+      {% endif %}
     </div>
     
     <form method="post" action="{% url 'orders:order_create' %}" class="shadow-lg space-y-6 p-10 w-96">
@@ -84,7 +94,7 @@
           
           
     </form>
-  <h1>Checkout</h1>
+  <!-- <h1>Checkout</h1>
   <div class="order-info">
     <h3>Your order</h3>
     <ul>
@@ -102,6 +112,6 @@
       {% endif %}
     </ul>
     <p>Total: ${{ cart.get_total_price_after_discount|floatformat:2 }}</p>
-  </div>
+  </div> -->
   
 {% endblock %}
