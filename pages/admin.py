@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Category, Product
 
 from django.urls import path
-from .views import import_product_csv
+from .views import import_product_csv, export_products_csv
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -24,6 +24,12 @@ class ProductAdmin(admin.ModelAdmin):
                 'import-csv/', 
                 self.admin_site.admin_view(import_product_csv), # Wrapped for security
                 name='product-import-csv'
+            ),
+
+            path(
+                'export-csv/', 
+                self.admin_site.admin_view(export_products_csv), 
+                name='product-export-csv'
             ),
         ]
         return custom_urls + urls

@@ -159,3 +159,40 @@ def import_product_csv(request):
         form = CsvImportForm()
 
     return render(request, 'admin/csv_form.html', {'form': form, 'opts': Product._meta})
+
+
+
+def export_products_csv(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="products_export.csv"'
+    
+    # Force UTF-8 with BOM for Excel compatibility (optional but helpful for Chinese characters)
+    response.write(u'\ufeff'.encode('utf8'))
+    
+    writer = csv.writer(response)
+    
+    # 1. Write the Header (matching your Dish_Cust_data_v1 format)
+    writer.writerow(['NAME', 'Slug', 'Image', 'Description', 'Price', 'Availability'])
+    
+    # 2. Get data from Database
+    products = Product.objects.all()
+    
+    # 3. Write rows
+    for product in products:
+        # We export the category name into the 'Slug' column to match your import logic
+        category_name = product.category.name if product.category else ""
+        
+        # Check if image exists, get the path
+        image_path = product.image.url if product.image else ""
+        
+        writer.writerow([
+            product.name,
+            category_name, # Mapped to 'Slug' column per your requirement
+            image_path,
+            product.description,
+            product.price,
+            'All' if product.available else 'No'
+        ])
+        
+    return response
