@@ -8,11 +8,35 @@
   <div class="container">
     <div class="row text-center">
       <div class="col-md-12">
-        <h1 class="display-4">About BC Health Care</h1>
-        <p class="lead">
+        {% comment %} <h1 class="display-4">親愛的顧客，請您在禪意十足的餐廳內盡情享用美食。</h1> {% endcomment %}
+        
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>傳統風格</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Serif', serif; /* Apply the chosen Google Font */
+        }
+        .display-4 {
+            font-size: 2.0rem; /* Adjust size as desired */
+            text-align: center; /* Center the text */
+            margin: 20px 0; /* Add margin for spacing */
+        }
+    </style>
+</head>
+<body>
+    <h1 class="display-4">親愛的顧客，請您在禪意十足的餐廳內盡情享用美食。</h1>
+</body>
+</html>
+        
+        {% comment %} <p class="lead">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt,
           pariatur!
-        </p>
+        </p> {% endcomment %}
       </div>
     </div>
   </div>
@@ -39,21 +63,20 @@
     <div class="row">
       <div class="col-md-8">
         <h2>
-          We Search For The Your health, your home – we help you find the right
-          clinic.
+         我們為您找到最美味的菜餚。
         </h2>
-        <p class="lead">
+        {% comment %} <p class="lead">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt,
           pariatur!
-        </p>
+        </p> {% endcomment %}
 
-        <img src={% static "img/about.jpg" %} alt="" />
+        {% comment %} <img src={% static "img/new_about.png" %} alt="" /> {% endcomment %}
+        <img src="{% static 'img/new_about.png' %}" alt="" style="border-radius: 15px;" />
         <p class="mt-4">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
-          esse officia repudiandae ad saepe ex, amet neque quod accusamus rem
-          quia magnam magni dolorum facilis ullam minima perferendis?
-          Exercitationem at quaerat commodi id libero eveniet harum perferendis
-          laborum molestias quia.
+          第一家綠茶餐廳於2008年開設於杭州西子湖畔一片美麗的龍井茶園中，故而得名。
+          如今，綠茶集團已經在全球擁有約500家直營門店，並於2025年5月在香港交易所成功上市。
+          在香港地區，我們邀請到米芝蓮名廚俞斌先生擔任首席顧問，為食客展現其獨有的「⼀手煙⽕，
+          ⼀手藝術」的浙菜美學。
         </p>
       </div>
       <div class="col-md-4">
@@ -76,76 +99,38 @@
   </div>
 </section>
 
-<!-- Work -->
-<section id="work" class="bg-dark text-white text-center">
-  <h2 class="display-4">We Work For You</h2>
-  <h4>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem velit
-    aperiam, unde aliquid at similique!
-  </h4>
-  <hr />
-  <a
-    href="{% url 'pages:index' %}"
-    class="btn btn-secondary text-white btn-lg"
-  >
-    View Our Featured Listings
-  </a>
-</section>
-
-<!-- Team -->
-{% if doctors %}
-<section id="team" class="py-5">
-  <div class="container">
-    <h2 class="text-center pb-4">Our Team</h2>
-
-    <div class="row text-center">
-      {% for doctor in doctors %}
-        <div class="col-md-4">
-          <img
-            src="{{ doctor.photo.url }}"
-            alt=""
-            class="rounded-circle mb-3 img-fluid"
-            style="object-fit: cover; width: 300px; height: 300px"
-          />
-          <h4>{{ doctor.name }}</h4>
-          <p class="text-success">
-            <i class="fas fa-award text-success"></i> Doctor
-          </p>
-          <hr />
-          <p><i class="fas fa-phone"></i> {{ doctor.phone }}</p>
-          <p><i class="fas fa-envelope-open"></i> {{ doctor.email }}</p>
+{% comment %} Footer {% endcomment %}
+<section class="bg-dark text-white py-5 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h5 class="text-white fw-bold mb-3">營業時間</h5>
+                <p class="small text-muted" style="line-height: 1.8;">
+                星期一至日   11:00 - 22:00 <br>
+                公眾假期     11:00 - 22:00 <br>
+                公眾假期前夕  11:00 - 22:00
+                </p>
+            </div>
+            <div class="col-md-2 mb-4">
+                <h6 class="text-white fw-bold mb-3">Navigation</h6>
+                <ul class="list-unstyled small">
+                    <li class="mb-2"><a href="/" class="text-muted text-decoration-none hover-white">Home</a></li>
+                    <li class="mb-2"><a href="/menu" class="text-muted text-decoration-none hover-white">Full Menu</a></li>
+                    <li class="mb-2"><a href="#comments-section" class="text-muted text-decoration-none hover-white">Reviews</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4 ms-auto">
+                <h6 class="text-white fw-bold mb-3">Visit Us</h6>
+                <ul class="list-unstyled small text-muted">
+                    <li class="mb-2"><i class="bi bi-geo-alt me-2 text-primary"></i> 觀塘觀塘道518號創紀之城五期(apm)大堂高層UC-1號舖</li>
+                    <li class="mb-2"><i class="bi bi-telephone me-2 text-primary"></i> +852 63006168</li>
+                </ul>
+            </div>
         </div>
-      {% endfor %} 
-      {% comment %}
-      <div class="col-md-4">
-        <img
-          src="assets/img/doctors/emma.jpg"
-          alt=""
-          class="rounded-circle mb-3 img-fluid"
-          style="object-fit: cover; width: 300px; height: 300px"
-        />
-        <h4>Emma Lee</h4>
-        <p class="text-success">Doctor</p>
-        <hr />
-        <p><i class="fas fa-phone"></i> (852)-444-4444</p>
-        <p><i class="fas fa-envelope-open"></i> emma@healthcare.co</p>
-      </div>
-      {% endcomment %} {% comment %}
-      <div class="col-md-4">
-        <img
-          src="assets/img/doctors/jenny.jpg"
-          alt=""
-          class="rounded-circle mb-3 img-fluid"
-          style="object-fit: cover; width: 300px; height: 300px"
-        />
-        <h4>Jenny Cheung</h4>
-        <p class="text-success">Doctor</p>
-        <hr />
-        <p><i class="fas fa-phone"></i> (852)-333-3333</p>
-        <p><i class="fas fa-envelope-open"></i> jenny@healthcare.co</p>
-      </div>
-      {% endcomment %}
+        <div class="border-top border-secondary pt-4 mt-4 text-center small text-muted">
+            &copy; 2026 . All rights reserved.
+        </div>
     </div>
-  </div>
 </section>
-{% endif %} {% endblock%}
+
+{% endblock%}
