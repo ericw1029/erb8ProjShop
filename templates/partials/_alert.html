@@ -21,5 +21,9 @@
             const bsAlert = new bootstrap.Alert(alert);
             bsAlert.close();
         }
+        $("#message").fadeOut("slow");
+        $('div.alert').each(function(index,ele){
+            $(ele).fadeOut("slow")
+        });
     }, 5000);
 </script>
