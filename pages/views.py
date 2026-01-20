@@ -64,12 +64,9 @@ def product_detail(request, id, slug):
 
 
 def index(request):
-    print(request, request.path)
-    # return HttpResponse("Pages-> index")
     return render(request, "pages/index.html")
 
 
 def about(request):
-    # return HttpResponse("Pages-> about")
     return render(request, "pages/about.html")
 

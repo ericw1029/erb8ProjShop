@@ -14,7 +14,7 @@ def post_search(request):
     queryset_list = Post.objects.order_by("-created_at")
     if "searchContent" in request.GET:
         search_content = request.GET["searchContent"]
-        print("Search-> searchContent -> Get[searchContent]", request.GET["searchContent"])
+        
         if search_content:
             queryset_list = queryset_list.filter(
                 Q(title__icontains=search_content)
@@ -94,7 +94,7 @@ def post_create(request):
 
 @login_required
 def post_edit(request,post_id):
-    print("post_edit", request)
+    
     post_item = Post.objects.get(id=post_id)
     form = PostForm(request.POST or None, instance=post_item)
     """Create a new post"""

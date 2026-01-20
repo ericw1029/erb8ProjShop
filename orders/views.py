@@ -22,7 +22,7 @@ def order_create(request):
         checkoutFirstName = request.POST["first_name"]
         checkoutLastName = request.POST["last_name"]
         
-        print("POST", checkoutEmail, checkoutFirstName, checkoutLastName)
+        
         form = OrderCreateForm(request.POST)
         if form.is_valid():
             order = form.save(commit=False)
@@ -67,11 +67,11 @@ def order_create(request):
             #              {'order': order})
 # >>>>>>> origin/anthonyBranchCoupon
     else:
-        print("order create",request.user.id)
+        
         current_user = User.objects.get(id=request.user.id)
         # Access the user object
           
-        print("order create",current_user)
+        
         form = OrderCreateForm()
     return render(
         request,
