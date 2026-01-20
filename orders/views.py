@@ -69,9 +69,11 @@ def order_create(request):
           
         print("order create",current_user)
         form = OrderCreateForm()
-    return render(request,
-                  'orders/order/create.html',
-                  {'cart': cart, 'form': form})
+    return render(
+        request,
+        "orders/order/create.html",
+        {"cart": cart, "form": form, "current_user": current_user},
+    )
 
 
 @staff_member_required
