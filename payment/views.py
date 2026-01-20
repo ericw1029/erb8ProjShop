@@ -3,6 +3,7 @@ from decimal import Decimal
 from django.conf import settings
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from orders.models import Order
+from .tasks import payment_completed as send_email
 
 
 # create the Stripe instance
@@ -15,6 +16,9 @@ def payment_process(request):
     order = get_object_or_404(Order, id=order_id)
 
     if request.method == 'POST':
+        order.paid = True
+        order.save()
+        send_email(order_id)
         return render(request,
                           'orders/order/created.html',
                           {'order': order})
