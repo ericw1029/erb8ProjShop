@@ -8,6 +8,11 @@ urlpatterns = [
     path("login/", views.login, name="login"),
     path("logout/", views.logout, name="logout"),
     path("register/", views.register, name="register"),
+    path(
+        'reset/<uidb64>/<token>/',
+        auth_views.PasswordResetConfirmView.as_view(),
+        name='password_reset_confirm' # This name must match exactly
+    ),
     # path("dashboard/", views.dashboard, name="dashboard"),
     # path(
     #     "password-change/",
