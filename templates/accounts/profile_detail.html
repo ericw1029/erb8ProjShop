@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ profile.full_name }} - Details{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <!-- Profile Card -->
+        <div class="card mb-4">
+            <div class="card-header text-center">
+                <h4 class="mb-0">Profile Image</h4>
+            </div>
+            <div class="card-body text-center">
+                {% if profile.profile_image %}
+                    <img src="{{ profile.profile_image.url }}" 
+                         alt="{{ profile.full_name }}" 
+                         class="profile-image mb-3">
+                {% else %}
+                    <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" 
+                         style="width: 150px; height: 150px;">
+                        <i class="fas fa-user fa-4x"></i>
+                    </div>
+                {% endif %}
+                
+                <h3>{{ profile.full_name }}</h3>
+                <p class="text-muted">{{ profile.email }}</p>
+                
+                {% if profile.gender %}
+                    <span class="badge gender-badge">
+                        <i class="fas fa-{% if profile.gender == 'M' %}mars{% elif profile.gender == 'F' %}venus{% else %}genderless{% endif %} me-1 mr-2"></i>
+                        {{ profile.get_gender_display }}
+                    </span>
+                {% endif %}
+                
+                {% if profile.age %}
+                    <span class="badge bg-info ms-1">
+                        <i class="fas fa-birthday-cake me-1 mr-2"></i>{{ profile.age }} years
+                    </span>
+                {% endif %}
+            </div>
+            <div class="card-footer text-center">
+                <a href="{% url 'accounts:profile_update' profile.user_id %}" class="btn btn-warning me-2">
+                    <i class="fas fa-edit me-1"></i>Edit
+                </a>
+            </div>
+        </div>
+        
+        <!-- Contact Info -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-address-book me-2 mr-2"></i>Contact Information</h5>
+            </div>
+            <div class="card-body">
+                <p><strong><i class="fas fa-phone me-2 mr-2"></i>Phone:</strong><br>
+                   {{ profile.phone|default:"Not provided" }}</p>
+                <p><strong><i class="fas fa-map-marker-alt me-2 mr-2"></i>Address:</strong><br>
+                   {{ profile.address|default:"Not provided"|linebreaksbr }}</p>
+                <p><strong><i class="fas fa-city me-2 mr-2"></i>City:</strong><br>
+                   {{ profile.city|default:"Not provided" }}</p>
+                <p><strong><i class="fas fa-globe me-2 mr-2"></i>Country:</strong><br>
+                   {{ profile.country|default:"Not provided" }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <!-- Bio Card -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-user-circle me-2 mr-2"></i>Biography</h5>
+            </div>
+            <div class="card-body">
+                {% if profile.bio %}
+                    <p>{{ profile.bio|linebreaks }}</p>
+                {% else %}
+                    <p class="text-muted fst-italic">No biography provided.</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Additional Info -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-info-circle me-2 mr-2"></i>Additional Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong><i class="fas fa-calendar-alt me-2 mr-2"></i>Date of Birth:</strong><br>
+                           {{ profile.date_of_birth|date:"F d, Y"|default:"Not provided" }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong><i class="fas fa-calendar-plus me-2 mr-2"></i>Created:</strong><br>
+                           {{ profile.created_at|date:"F d, Y H:i" }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong><i class="fas fa-calendar-check me-2 mr-2"></i>Last Updated:</strong><br>
+                           {{ profile.updated_at|date:"F d, Y H:i" }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong><i class="fas fa-id-card me-2 mr-2"></i>Profile ID:</strong><br>
+                           {{ profile.id }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{% url 'pages:product_list' %}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left me-1 mr-2"></i>Back to Product List
+    </a>
+</div>
+{% endblock %}
