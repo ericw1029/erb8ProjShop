@@ -5,6 +5,8 @@ from django.contrib import admin
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from .models import Order, OrderItem
+from import_export.admin import ImportExportModelAdmin
+from .resources import OrderResource
 
 
 def export_to_csv(modeladmin, request, queryset):
@@ -55,8 +57,8 @@ class OrderItemInline(admin.TabularInline):
     raw_id_fields = ['product']
 
 
-@admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
+#@admin.register(Order)
+class OrderAdmin(ImportExportModelAdmin):
     list_display = ['id', 'first_name', 'last_name', 'email',
                     'address', 'postal_code', 'city', 'paid',
                     'created', 'updated',
@@ -64,3 +66,6 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ['paid', 'created', 'updated']
     inlines = [OrderItemInline]
     actions = [export_to_csv]
+    resource_class = OrderResource
+
+admin.site.register(Order, OrderAdmin)

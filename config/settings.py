@@ -55,7 +55,7 @@ APPLICATION_APPS= [
     'coupons.apps.CouponsConfig',
 ]
 
-THIRD_PARTY_APPS = ["debug_toolbar","widget_tweaks",'taggit']
+THIRD_PARTY_APPS = ["debug_toolbar","widget_tweaks",'taggit','import_export']
 
 INSTALLED_APPS = DJANGO_APPS + APPLICATION_APPS + THIRD_PARTY_APPS
 

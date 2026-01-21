@@ -1,14 +1,16 @@
 # admin.py
 from django.contrib import admin
 from .models import Post, Comment
+from import_export.admin import ImportExportModelAdmin
+from .resources import PostResource, CommentResource
 
 
-
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(ImportExportModelAdmin):
     list_display = ("title", "author", "created_at", "comment_count")
     list_filter = ("created_at", "author")
     search_fields = ("title", "content", "author__username")
     date_hierarchy = "created_at"
+    resource_class = PostResource
 
     def comment_count(self, obj):
         return obj.comments.count()
@@ -18,7 +20,7 @@ class PostAdmin(admin.ModelAdmin):
 admin.site.register(Post, PostAdmin)
 
 
-class CommentAdmin(admin.ModelAdmin):
+class CommentAdmin(ImportExportModelAdmin):
     list_display = (
         "author",
         "content_preview",
@@ -36,6 +38,7 @@ class CommentAdmin(admin.ModelAdmin):
         "activate_comments",
         "deactivate_comments",
     ]
+    resource_class = CommentResource
 
     def content_preview(self, obj):
         return obj.content[:50] + "..." if len(obj.content) > 50 else obj.content
