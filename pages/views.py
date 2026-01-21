@@ -23,7 +23,7 @@ from django.core.files import File
 # Create your views here.
 # todo
 # !
-## ericAdjustBranch test new folder eric
+## ericAdjustBranch test new folder eric !
 def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
