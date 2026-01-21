@@ -21,10 +21,13 @@
             </li>
             <li {% if '/about' == request.path %} class="nav-item active mr-3" {% else %} class="nav-item  mr-3" {% endif %}>
               <a class="nav-link" href={% url 'pages:about' %}>About</a>
-            </li>
-            <li {% if '/comments/' == request.path %} class="nav-item active mr-3" {% else %} class="nav-item  mr-3" {% endif %} hidden>
-              <a class="nav-link" href={% url 'pages:index' %}>Comments</a>
-            </li>
+            </li>            
+            {% if user.is_authenticated and user.username == 'admin' %}
+              <li {% if '/comments/' == request.path %} class="nav-item active mr-3" {% else %} class="nav-item  mr-3" {% endif %}>
+                <a class="nav-link" href={% url 'blogs:comment_list' %}>Comments</a>
+              </li>
+            {% endif%}
+           
           </ul>
 
           <ul class="navbar-nav ml-auto">
@@ -33,16 +36,16 @@
             </li>
             {% if user.is_authenticated %}            
               
-              <li {% if 'dashboard' in request.path %} class="nav-item mr-3 active" {% else %}  class="nav-item mr-3" {% endif %}>
-                <!-- <a class="nav-link" href="{% url 'accounts:dashboard' %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (dashboard) </a> -->
-                <a class="nav-link" href="{% url 'pages:product_list' %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (dashboard) </a>
+              <li {% if 'profile' in request.path %} class="nav-item mr-3 active" {% else %}  class="nav-item mr-3" {% endif %}>
+                {% comment %} <a class="nav-link" href="{% url 'accounts:dashboard' %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (dashboard) </a> {% endcomment %}
+                <a class="nav-link" href="{% url 'accounts:profile_detail' user.id %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (profile) </a>
               </li>
               
               {% comment %} <li>
                 <a class="nav-link" href="{% url 'blogs:post_create' %}">New Post</a> {% endcomment %}
 
               <li {% if 'change_password' in request.path %} class="nav-item mr-3 active" {% else %}  class="nav-item mr-3" {% endif %}>
-                <!-- <a class="nav-link" href="{% url 'accounts:dashboard' %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (dashboard) </a> -->
+                {% comment %} <a class="nav-link" href="{% url 'accounts:dashboard' %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (dashboard) </a> {% endcomment %}
                 <a class="nav-link" href="{% url 'accounts:change_password' %}"> <i class="fas fa-user-plus"></i> Change password</a>
               </li>
               <!-- logout -->

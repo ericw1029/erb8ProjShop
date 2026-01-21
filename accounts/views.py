@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages,auth
 from django.contrib.auth.models import User
 #from contacts.models import Contact
@@ -16,6 +16,11 @@ from django.utils.encoding import force_bytes, force_str
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.conf import settings
+from .models import Profile
+from .forms import ProfileForm
+
+from urllib.parse import urlencode
+from django.urls import reverse
 
 # Create your views here.
 def login(request):
@@ -77,9 +82,9 @@ def register(request):
 #     }
 #     return render(request,'accounts/dashboard.html',context)
 
-def dashboard(request):
+# def dashboard(request):
     
-    return redirect("pages/product_list.html")
+#     return redirect("pages/product_list.html")
 
 def password_reset_confirm(request):
     return render(request,'accounts/password_reset_confirm.html')
@@ -117,11 +122,9 @@ def change_password(request):
     context = {"form": form, "title": "Change Password"}
     return render(request, "accounts/change_password.html", context)
 
-
 @login_required
 def change_password_done(request):
     return render(request, "accounts/change_password_done.html")
-
 
 # Password Reset Views (for forgotten passwords)
 def reset_password(request):
@@ -230,3 +233,107 @@ def reset_password_confirm(request, uidb64=None, token=None):
 
 def reset_password_complete(request):
     return render(request, "accounts/reset_password_complete.html")
+
+@login_required
+def profile(request):
+    return render(request, "accounts/profile.html")
+
+def profile_detail(request, pk):
+    """View individual profile details"""
+    profileExist = Profile.objects.filter(user_id=pk).exists()
+    if profileExist:
+        profile = get_object_or_404(Profile, user_id=pk)
+        context = {"profile": profile}
+        return render(request, "accounts/profile_detail.html", context)
+    else:
+        # Use reverse properly - no need to manually construct the URL
+        # If profile_create expects a URL parameter, define it in urls.py
+        # If it uses GET parameter (as in your code), just redirect to it
+        return redirect(f"{reverse('accounts:profile_create')}?user_id={pk}")
+
+
+# def edit_profile(request, pk):
+#     """View individual profile details"""
+#     print("edit_profile", pk)
+#     current_user = User.objects.get(id=pk)
+#     form = ProfileForm()
+#     profileExist = Profile.objects.filter(pk=pk).exists()
+#     # profile = get_object_or_404(Profile, pk=pk)
+#     if profileExist:
+#         context = {"profile": profile,"saveType":"update"}
+#         return render(request, "accounts/profile_form.html", context)
+#     else:      
+#         print("edit_profile  none", profile)  
+            
+#         context = {"form": form, "current_user": current_user, "saveType": "create"}
+#         print("edit_profile", context['saveType'])
+#         return render(request, "accounts/profile_form.html", context)
+def edit_profile(request, pk):
+    """View individual profile details"""
+    print("edit_profile", pk)
+   
+    profileExist = Profile.objects.filter(user_id=pk).exists()
+    # profile = get_object_or_404(Profile, pk=pk)
+    if profileExist:
+        profile= Profile.objects.get(user_id=pk)
+        # Fix: redirect() takes the URL as first argument, not request
+        return redirect("accounts:profile_detail", pk=profile.id)
+    else:
+        # Use reverse properly - no need to manually construct the URL
+        # If profile_create expects a URL parameter, define it in urls.py
+        # If it uses GET parameter (as in your code), just redirect to it
+        return redirect(f"{reverse('accounts:profile_create')}?user_id={pk}")
+
+
+def profile_create(request,user_id=None):
+    """Create a new profile"""
+    # Access the parameters using request.GET    
+    print("profile_create", user_id)    
+    if request.method == "POST":
+        print("POST data:", request.POST)  # Debug: see what's being submitted
+        print("User ID:", request.POST['user_id'])  # Debug: check if user_id is correct
+        current_user = User.objects.get(id=request.POST["user_id"])
+        
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            # Set the user for the profile
+            profile.user = current_user
+            # Now save to database
+            profile.save()
+            messages.success(
+                request, f"Profile for {profile.full_name()} created successfully!"
+            )
+            return redirect("accounts:profile_detail", pk=profile.user_id)
+    else:
+        user_id = request.GET.get("user_id")
+        current_user = User.objects.get(id=user_id)
+        initial_data = {
+            "first_name": current_user.first_name,
+            "last_name": current_user.last_name,
+            "email": current_user.email,
+            "user": current_user,
+        }
+        form = ProfileForm(initial=initial_data)
+
+    context = {"form": form, "title": "Create New Profile","user_id":user_id}
+    return render(request, "accounts/profile_form.html", context)
+
+
+def profile_update(request, pk):
+    """Update an existing profile"""
+    profile = get_object_or_404(Profile, user_id=pk)
+
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, f"Profile for {profile.full_name()} updated successfully!"
+            )
+            return redirect("accounts:profile_detail", pk=profile.user_id)
+    else:
+        form = ProfileForm(instance=profile)
+
+    context = {"form": form, "profile": profile, "title": "Update Profile"}
+    return render(request, "accounts/profile_form.html", context)

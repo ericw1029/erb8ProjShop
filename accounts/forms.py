@@ -5,6 +5,8 @@ from django.core.exceptions import ValidationError
 
 from django.contrib.auth.forms import SetPasswordForm as DjangoSetPasswordForm
 from django.contrib.auth.forms import PasswordResetForm as DjangoPasswordResetForm
+from .models import Profile
+import datetime
 
 User = get_user_model()
 
@@ -103,3 +105,83 @@ class SetPasswordForm(DjangoSetPasswordForm):
         self.fields[
             "new_password1"
         ].help_text = "Your password must contain at least 8 characters."
+        
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = [
+            "first_name",
+            "last_name",
+            "email",
+            "phone",
+            "address",
+            "city",
+            "country",
+            "date_of_birth",
+            "gender",
+            "bio",
+            "profile_image",
+        ]
+        widgets = {
+            "first_name": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter first name",
+                    "readonly": "readonly",
+                }
+            ),
+            "last_name": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter last name",
+                    "readonly": "readonly"
+                }
+            ),
+            "email": forms.EmailInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter email address",
+                    "readonly": "readonly"
+                }
+            ),
+            "phone": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "Enter phone number"}
+            ),
+            "address": forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "rows": 3,
+                    "placeholder": "Enter address",
+                }
+            ),
+            "city": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "Enter city"}
+            ),
+            "country": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "Enter country"}
+            ),
+            "date_of_birth": forms.DateInput(
+                attrs={"class": "form-control", "type": "date"}
+            ),
+            "gender": forms.Select(attrs={"class": "form-control"}),
+            "bio": forms.Textarea(
+                attrs={"class": "form-control", "rows": 4, "placeholder": "Enter bio"}
+            ),
+            "profile_image": forms.FileInput(attrs={"class": "form-control"}),
+        }
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        instance_id = self.instance.id if self.instance else None
+
+        # Check if email already exists (excluding current instance)
+        if Profile.objects.filter(email=email).exclude(id=instance_id).exists():
+            raise forms.ValidationError("This email is already registered.")
+        return email
+
+    def clean_date_of_birth(self):
+        date_of_birth = self.cleaned_data.get("date_of_birth")
+        if date_of_birth:
+            if date_of_birth > datetime.date.today():
+                raise forms.ValidationError("Date of birth cannot be in the future.")
+        return date_of_birth

@@ -39,9 +39,7 @@ class Comment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     # Optional: Reply functionality
-    parent = models.ForeignKey(
-        "self", on_delete=models.CASCADE, null=True, blank=True, related_name="replies"
-    )
+    parent = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True, related_name="replies")
 
     # Optional: Moderation fields
     is_approved = models.BooleanField(default=True)
