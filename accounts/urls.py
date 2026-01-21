@@ -93,6 +93,6 @@ urlpatterns = [
     path("profile/create/<int:user_id>/", views.profile_create, name="profile_create"),
     path("profile/create/", views.profile_create, name="profile_create"),
     path("profile/<int:pk>/", views.profile_detail, name="profile_detail"),
-    path("profile/<int:pk>/edit", views.edit_profile, name="edit_profile"),
+    #path("profile/<int:pk>/edit", views.edit_profile, name="edit_profile"),
     path("profile/<int:pk>/update/", views.profile_update, name="profile_update"),
 ]

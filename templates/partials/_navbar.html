@@ -30,7 +30,7 @@
             </li>                       
             {% if user.is_authenticated and user.username == 'admin' %}
               <li {% if '/comments/' == request.path %} class="nav-item active mr-3" {% else %} class="nav-item  mr-3" {% endif %}>
-                <a class="nav-link" href={% url 'blogs:comment_list' %}>留言管理</a>
+                <a class="nav-link" href={% url 'blogs:comment_list' %}>留言區管理</a>
               </li>
             {% endif%}
           </ul>
@@ -73,7 +73,7 @@
               <li {% if 'password_reset' in request.path %} class="nav-item mr-3 active" {% else %}  class="nav-item mr-3" {% endif %}>
                 <a class="nav-link" href="{% url 'accounts:password_reset' %}">
                   <i class="fas fa-user-plus"></i> 忘記密碼</a>
-              </li>
+              </li> 
               <li {% if 'register' in request.path %} class="nav-item mr-3 active" {% else %}  class="nav-item mr-3" {% endif %}>
                 <a class="nav-link" href="{% url 'accounts:register' %}">
                   <i class="fas fa-user-plus"></i> 登記</a>

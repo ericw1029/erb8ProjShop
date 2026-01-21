@@ -3,6 +3,9 @@
 {% block title %}{{ profile.full_name }} - Details{% endblock %}
 
 {% block content %}
+<div class="container my-5">
+
+
 <div class="row">
     <div class="col-md-4">
         <!-- Profile Card -->
@@ -111,5 +114,6 @@
     <a href="{% url 'pages:product_list' %}" class="btn btn-secondary">
         <i class="fas fa-arrow-left me-1 mr-2"></i>Back to Product List
     </a>
+</div>
 </div>
 {% endblock %}
