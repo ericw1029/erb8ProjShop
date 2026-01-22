@@ -127,21 +127,21 @@ class ProfileForm(forms.ModelForm):
                 attrs={
                     "class": "form-control",
                     "placeholder": "Enter first name",
-                    "readonly": "readonly",
+                    # "readonly": "readonly",
                 }
             ),
             "last_name": forms.TextInput(
                 attrs={
                     "class": "form-control",
                     "placeholder": "Enter last name",
-                    "readonly": "readonly"
+                    # "readonly": "readonly"
                 }
             ),
             "email": forms.EmailInput(
                 attrs={
                     "class": "form-control",
                     "placeholder": "Enter email address",
-                    "readonly": "readonly"
+                    # "readonly": "readonly"
                 }
             ),
             "phone": forms.TextInput(

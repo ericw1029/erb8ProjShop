@@ -256,24 +256,37 @@
             <div class="col-md-4 mb-4">
                 <h5 class="text-white fw-bold mb-3">營業時間</h5>
                 <p class="small text-muted" style="line-height: 1.8;">
-                星期一至日 :    11:00 - 22:00 <br>
-                公眾假期 :      11:00 - 22:00 <br>
-                公眾假期前夕 :   11:00 - 22:00
-                </p>
+                <div class="d-flex justify-content-between small text-muted">
+                <span>星期一至日</span>
+                <span class="time">11:00 - 22:00</span>
             </div>
-            <div class="col-md-2 mb-4">
-                <h6 class="text-white fw-bold mb-3">導航</h6>
+            
+<div class="d-flex justify-content-between small text-muted">
+    <span>公眾假期</span>
+    <span class="time">11:00 - 22:00</span>
+</div>
+<div class="d-flex justify-content-between small text-muted">
+    <span>公眾假期前夕</span>
+    <span class="time">11:00 - 22:00</span>
+</div>
+</table>
+            </div>
+           <div class="col-md-2 mb-4">
+               <!--  <h6 class="text-white fw-bold mb-3">Navigation</h6>
                 <ul class="list-unstyled small">
-                    <li class="mb-2"><a href="/" class="text-muted text-decoration-none hover-white">Home</a></li>
-                    <li class="mb-2"><a href="/menu" class="text-muted text-decoration-none hover-white">Full Menu</a></li>
-                    <li class="mb-2"><a href="#comments-section" class="text-muted text-decoration-none hover-white">Reviews</a></li>
-                </ul>
+                    <li class="mb-2"><a href="/" class="text-muted text-decoration-none hover-white">Home</a></li> 
+                    <li class="mb-2"><a href="/menu" class={% url 'pages:product_list' %}>立即訂餐</a></li>
+                    <li class="mb-2"><a href="#comments-section" class={% url 'blogs:post_list' %}>留言區</a></li> 
+                </ul>-->
             </div>
             <div class="col-md-3 mb-4 ms-auto">
-                <h6 class="text-white fw-bold mb-3">Visit Us</h6>
+                <h6 class="text-white fw-bold mb-3">聯絡我們</h6>
                 <ul class="list-unstyled small text-muted">
                     <li class="mb-2"><i class="bi bi-geo-alt me-2 text-primary"></i> 觀塘觀塘道518號創紀之城五期(apm)大堂高層UC-1號舖</li>
-                    <li class="mb-2"><i class="bi bi-telephone me-2 text-primary"></i> +852 63006168</li>
+                    <li class="mb-2"><i class="bi bi-telephone me-2 text-primary"></i> <i class="fas fa-phone">(852)-555-5555</i>
+                    <li class="mb-2"><i class="bi bi-email me-2 text-primary"></i><i class="fas fa-envelope-open"> contact@erb8shop.com</i>
+              </div>
+
                 </ul>
             </div>
         </div>

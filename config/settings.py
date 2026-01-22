@@ -148,10 +148,12 @@ USE_TZ = True #use time zone #some student need to set the line
 STATIC_ROOT=os.path.join(BASE_DIR,'static') 
 #set the newly created static folder path
 STATIC_URL = 'static/' 
+# <img src="/static/img/lb_dinning.png" alt="First slide">
 #this statement is used to scan all the static file in the project folder and copy thoses files to the newly created
 #static folder
-STATICFILES_DIRS =[os.path.join(BASE_DIR,'config/static')] 
 
+STATICFILES_DIRS =[os.path.join(BASE_DIR,'config/static')] 
+# STATICFILES_DIRS =[os.path.join(BASE_DIR,'static')] 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
