@@ -89,7 +89,7 @@
                                         {% for reply in comment.replies.all %}
                                             <div class="reply border-start ps-3 mb-2">
                                                 <div class="d-flex justify-content-between">
-                                                    <small><strong>{{ reply.author.username }}</strong></small>
+                                                    <small><strong><a href="{% url 'accounts:profile_detail' reply.author_id %}">{{ reply.author.username }}</a></strong></small>
                                                     <small class="text-muted">{{ reply.created_at|timesince }} ago</small>
                                                 </div>
                                                 <small>{{ reply.content }}</small>

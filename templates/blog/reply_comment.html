@@ -8,7 +8,7 @@
                 <h4>Reply to Comment</h4>
             </div>
             <div class="card-body">
-                <p class="text-muted">Replying to: <strong>{{ parent_comment.author.username }}</strong></p>
+                <p class="text-muted">Replying to: <strong><a href="{% url 'accounts:profile_detail' parent_comment.author_id %}">{{ parent_comment.author.username }}</a></strong></p>
                 <div class="alert alert-light">
                     {{ parent_comment.content }}
                 </div>
