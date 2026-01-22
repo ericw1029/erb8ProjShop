@@ -4,6 +4,9 @@
 {% block title %}Pay your order{% endblock %}
 
 {% block content %}
+<div class="container">
+
+
   <h1>Order summary</h1>
   <table class="cart">
     <thead>
@@ -57,4 +60,5 @@
     <input type="submit" value="Pay now">
     {% csrf_token %}
   </form>
-{% endblock %}
+</div>
+  {% endblock %}
