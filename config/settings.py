@@ -104,9 +104,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "erb8shop1",
+        "NAME": "erb8shop",
         "USER": "postgres",
-        "PASSWORD": "admin1234",
+        "PASSWORD": "1234",
         "HOST": "localhost",
     }
 }
@@ -189,3 +189,10 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASS')
+
+
+# Stripe settings
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51SrvamFjeVhyYFoh3twWqOKI3V358bkvVo2eCsWq8kjFtzso6RHP5q2iQXl57sX31GgbFpFvyVGWjrqmnMjAvTbZ000Hi65wnX' # Publishable key
+STRIPE_SECRET_KEY = 'sk_test_51SrvamFjeVhyYFohyI4BhGYeuP0lXO5AtJDshndhURXOJ3WjLAjnKQ5XiqrnLD8O5IMj1NhxDtDvhvsG7Y9L6kLA00eC2a8jCi'      # Secret key
+STRIPE_API_VERSION = '2022-08-01'
+#STRIPE_WEBHOOK_SECRET = ''
