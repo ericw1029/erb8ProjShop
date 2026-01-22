@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 import weasyprint
 from .models import OrderItem, Order
 from .forms import OrderCreateForm
+from .tasks import order_created
 from cart.cart import Cart
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -54,6 +55,7 @@ def order_create(request):
 # =======
             # launch asynchronous task
             #order_created.delay(order.id)
+            order_created(order.id)
             # set the order in the session
             request.session['order_id'] = order.id
             # redirect for payment
