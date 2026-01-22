@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="card-body">
                     <form method="get" class="row g-3">
-                        <div class="col-md-3">
+                        <div class="col-md-3" hidden>
                             <label class="form-label">Status</label>
                             <select name="status" class="form-select">
                                 <option value="">All Status</option>
@@ -26,15 +26,15 @@
                                 <option value="rejected" {% if request.GET.status == 'rejected' %}selected{% endif %}>Rejected</option>
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <label class="form-label">Post</label>
                             <input type="text" name="post" class="form-control" placeholder="Post title..." value="{{ request.GET.post }}">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <label class="form-label">Author</label>
                             <input type="text" name="author" class="form-control" placeholder="Author username..." value="{{ request.GET.author }}">
                         </div>
-                        <div class="col-md-3 d-flex align-items-end">
+                        <div class="col-md-4 d-flex align-items-end">
                             <div class="btn-group w-100">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="bi bi-funnel"></i> Filter
@@ -64,7 +64,7 @@
                                         <th>Author</th>
                                         <th>Post</th>
                                         <th>Date</th>
-                                        <th>Status</th>
+                                        <th hidden>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -99,7 +99,7 @@
                                             <small>{{ comment.created_at|date:"M d, Y" }}</small><br>
                                             <small class="text-muted">{{ comment.created_at|time }}</small>
                                         </td>
-                                        <td>
+                                        <td hidden>
                                             <span class="badge {% if comment.is_active and comment.is_approved %} bg-success
                                                               {% elif not comment.is_active %} bg-danger
                                                               {% else %}bg-warning{% endif %}">
@@ -223,15 +223,15 @@
 
     <!-- Stats Card -->
     <div class="row mt-4">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card bg-success text-white">
                 <div class="card-body">
-                    <h6 class="card-title">Approved</h6>
+                    <h6 class="card-title">Active</h6>
                     <h2>{{ approved_count|default:0 }}</h2>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3" hidden>
             <div class="card bg-warning text-dark">
                 <div class="card-body">
                     <h6 class="card-title">Pending</h6>
@@ -239,7 +239,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card bg-danger text-white">
                 <div class="card-body">
                     <h6 class="card-title">Deleted</h6>
@@ -247,7 +247,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card bg-info text-white">
                 <div class="card-body">
                     <h6 class="card-title">Total</h6>
