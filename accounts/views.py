@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages,auth
 from django.contrib.auth.models import User
+from .models import Profile
 #from contacts.models import Contact
+
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
@@ -246,6 +248,19 @@ def profile_detail(request, pk):
         context = {"profile": profile}
         return render(request, "accounts/profile_detail.html", context)
     else:
+        current_user =request.user
+        print("profile_detail current user",current_user.username,current_user.id)
+        print("profile_detail pk",pk)
+        if current_user.id != pk:
+            user_info = User.objects.get(id=pk)
+            print("urrent_user.id != pk user_info:", user_info)
+            user_profile = Profile.objects.create(user_id=pk,first_name=user_info.first_name,last_name=user_info.last_name,email=user_info.email,phone="",address="",bio="")
+            user_profile.save()
+            user_profile =Profile.objects.get(user_id=pk)
+            #user_profile_obj = Profile.objects.get(user_id=pk)
+            print("urrent_user.id != pk  user_profile_obj:", user_profile)
+            return render(request, "accounts/profile_detail.html", {"profile": user_profile})
+            
         # Use reverse properly - no need to manually construct the URL
         # If profile_create expects a URL parameter, define it in urls.py
         # If it uses GET parameter (as in your code), just redirect to it
@@ -288,7 +303,7 @@ def edit_profile(request, pk):
 def profile_create(request,user_id=None):
     """Create a new profile"""
     # Access the parameters using request.GET    
-    print("profile_create", user_id)    
+    print("profile_create user_id", user_id)    
     if request.method == "POST":
         print("POST data:", request.POST)  # Debug: see what's being submitted
         print("User ID:", request.POST['user_id'])  # Debug: check if user_id is correct

@@ -18,11 +18,7 @@ from django.contrib.auth.models import User
 def order_create(request):
     current_user = User.objects.get(id=request.user.id)
     cart = Cart(request)
-    if request.method == 'POST':
-        checkoutEmail = request.POST["email"]
-        checkoutFirstName = request.POST["first_name"]
-        checkoutLastName = request.POST["last_name"]
-        
+    if request.method == 'POST':        
         
         form = OrderCreateForm(request.POST)
         if form.is_valid():

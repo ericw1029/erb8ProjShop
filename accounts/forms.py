@@ -109,19 +109,8 @@ class SetPasswordForm(DjangoSetPasswordForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = [
-            "first_name",
-            "last_name",
-            "email",
-            "phone",
-            "address",
-            "city",
-            "country",
-            "date_of_birth",
-            "gender",
-            "bio",
-            "profile_image",
-        ]
+        fields = [            "first_name",            "last_name",            "email",            "phone",            "address",
+            "city",            "country",            "date_of_birth",            "gender",            "bio",            "profile_image",]
         widgets = {
             "first_name": forms.TextInput(
                 attrs={
