@@ -8,6 +8,11 @@ urlpatterns = [
     path("login/", views.login, name="login"),
     path("logout/", views.logout, name="logout"),
     path("register/", views.register, name="register"),
+    path(
+        'reset/<uidb64>/<token>/',
+        auth_views.PasswordResetConfirmView.as_view(),
+        name='password_reset_confirm' # This name must match exactly
+    ),
     # path("dashboard/", views.dashboard, name="dashboard"),
     # path(
     #     "password-change/",
@@ -70,6 +75,43 @@ urlpatterns = [
     #     views.password_reset_complete,
     #     name="password-reset-complete",
     # ),
+    path(
+        "password-reset/done/",
+        auth_views.PasswordResetDoneView.as_view(
+            template_name="accounts/password_reset_done.html"
+        ),
+        name="password_reset_done",
+    ),
+    path(
+        "password-reset/<uidb64>/<token>/",
+        auth_views.PasswordResetConfirmView.as_view(
+            template_name="accounts/password_reset_confirm.html",
+            success_url=reverse_lazy("accounts:password_reset_complete"),
+        ),
+        name="password_reset_confirm",
+    ),
+    path(
+        "password-PasswordResetCompleteViewreset/complete/",
+        auth_views.PasswordResetCompleteView.as_view(
+            template_name="accounts/password_reset_complete.html"
+        ),
+        name="password_reset_complete",
+    ),
+    path(
+        "password-reset-complete/",
+        views.password_reset_complete,
+        name="password-reset-complete",
+    ),
+    path(
+        "password-reset-confirm/",
+        views.password_reset_confirm,
+        name="password-reset-confirm",
+    ),
+    path(
+        "password-reset-complete/",
+        views.password_reset_complete,
+        name="password-reset-complete",
+    ),
     path("password-reset-done/", views.password_reset_done, name="password-reset-done"),
     path("change_password/", views.change_password, name="change_password"),
     path(
@@ -88,6 +130,6 @@ urlpatterns = [
     path("profile/create/<int:user_id>/", views.profile_create, name="profile_create"),
     path("profile/create/", views.profile_create, name="profile_create"),
     path("profile/<int:pk>/", views.profile_detail, name="profile_detail"),
-    path("profile/<int:pk>/edit", views.edit_profile, name="edit_profile"),
+    #path("profile/<int:pk>/edit", views.edit_profile, name="edit_profile"),
     path("profile/<int:pk>/update/", views.profile_update, name="profile_update"),
 ]

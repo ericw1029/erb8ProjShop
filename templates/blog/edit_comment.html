@@ -22,7 +22,7 @@
                     </div>
                     <div class="flex-grow-1 ms-3">
                         <div class="d-flex justify-content-between">
-                            <strong>{{ comment.author.username }}</strong>
+                            <strong><a href="{% url 'accounts:profile_detail' comment.author_id %}">{{ comment.author.username }}</a></strong>
                             <small class="text-muted">{{ comment.created_at|date:"M d, Y H:i" }}</small>
                         </div>
                         <p class="mb-0 mt-2">{{ comment.content }}</p>

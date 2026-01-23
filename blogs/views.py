@@ -94,17 +94,19 @@ def post_create(request):
 
 @login_required
 def post_edit(request,post_id):
-    
     post_item = Post.objects.get(id=post_id)
+    print("post_edit",post_item.id)
     form = PostForm(request.POST or None, instance=post_item)
     """Create a new post"""
     if request.method == "POST":
-        form = PostForm(request.POST)
+        
+        print("post_edit POST->",post_id)
+        form = PostForm(request.POST,instance=post_item)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            messages.success(request, "Post created successfully!")
+            messages.success(request, "Post edit successfully!")
             return redirect("blogs:post_detail", post_id=post.id)
     
     context = {"form": form}

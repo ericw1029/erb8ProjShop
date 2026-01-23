@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 import weasyprint
 from .models import OrderItem, Order
 from .forms import OrderCreateForm
+from .tasks import order_created
 from cart.cart import Cart
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -17,11 +18,7 @@ from django.contrib.auth.models import User
 def order_create(request):
     current_user = User.objects.get(id=request.user.id)
     cart = Cart(request)
-    if request.method == 'POST':
-        checkoutEmail = request.POST["email"]
-        checkoutFirstName = request.POST["first_name"]
-        checkoutLastName = request.POST["last_name"]
-        
+    if request.method == 'POST':        
         
         form = OrderCreateForm(request.POST)
         if form.is_valid():
@@ -58,6 +55,7 @@ def order_create(request):
 # =======
             # launch asynchronous task
             #order_created.delay(order.id)
+            order_created(order.id)
             # set the order in the session
             request.session['order_id'] = order.id
             # redirect for payment
