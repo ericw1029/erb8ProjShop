@@ -1,0 +1,1 @@
+python manage.py graph_models -a -g --group-models -X Session,LogEntry,Permission,ContentType,Group -o full_project_uml.png
