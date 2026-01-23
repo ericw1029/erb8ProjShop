@@ -1,10 +1,12 @@
-{%load static %}
+{% load i18n %}
+{% load static %}
 {% comment %} Ctrl +K Ctrl +J unfold region {% endcomment %}
 {% comment %} Ctrl +K Ctrl +0 fold region {% endcomment %}
 {% comment %} Ctrl Shift + I  format document {% endcomment %}
 <!-- shift + alt + left mouse -->
 <!DOCTYPE html>
-<html lang="en">
+<!--<html lang="en">-->
+<html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -33,13 +35,13 @@
         <div class="cart">
           {% with total_items=cart|length %}
             {% if total_items > 0 %}
-              Your cart:
+              {% translate "Your cart" %}:
               <a href="{% url 'cart:cart_detail' %}">
-                {{ total_items }} item{{ total_items|pluralize }},
+                {{ total_items }} {% translate "item" %}{% if LANGUAGE_CODE == "en" %}{{ total_items|pluralize }}{% endif %},
                 ${{ cart.get_total_price }}
               </a>
             {% elif not order %}
-              Your cart is empty.
+              {% translate "Your cart is empty." %}
             {% endif %}
           {% endwith %}
         </div>

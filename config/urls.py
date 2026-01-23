@@ -21,7 +21,11 @@ from django.conf.urls.static import static
 from django.conf import settings
 #https://django-debug-toolbar.readthedocs.io/en/latest/installation.html
 from debug_toolbar.toolbar import debug_toolbar_urls
+from django.conf.urls.i18n import i18n_patterns
+from django.utils.translation import gettext_lazy as _
 
+
+"""
 urlpatterns = [
     path('admin/', admin.site.urls),    
     path('cart/', include('cart.urls', namespace='cart')),
@@ -33,8 +37,24 @@ urlpatterns = [
     path('payment/', include('payment.urls', namespace='payment')),
     path('coupons/', include('coupons.urls', namespace='coupons')),
     path('',include('pages.urls',namespace='pages')),  
-]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) + debug_toolbar_urls()
+    path('i18n/', include('django.conf.urls.i18n')),
+] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) + debug_toolbar_urls()
+"""
+urlpatterns = i18n_patterns(
+    path('admin/', admin.site.urls),    
+    path(_('cart/'), include('cart.urls', namespace='cart')),
+    path(_('orders/'), include('orders.urls', namespace='orders')),  
+    path(_('accounts/'),include('accounts.urls',namespace='accounts')),
+    path(_('reviews/'), include('reviews.urls', namespace='reviews')), 
+    path(_("blogs/"), include("blogs.urls", namespace="blogs")),
+    path(_('accounts/'),include('accounts.urls',namespace='accounts')),    
+    path(_('payment/'), include('payment.urls', namespace='payment')),
+    path(_('coupons/'), include('coupons.urls', namespace='coupons')),
+    path('rosetta/', include('rosetta.urls')),
+    path('',include('pages.urls',namespace='pages')),  
+)
 
+urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) + debug_toolbar_urls()
 
 # admin.site.site_header ="Clinic Administrator"
 # admin.site.site_title ="Clinic Admin Portal"

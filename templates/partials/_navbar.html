@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 <!-- Navbar -->
     {% comment %} 
@@ -20,30 +21,30 @@
           <ul class="navbar-nav">
             {% comment %} <li>{{ request.path }}</li> {% endcomment %}
             <li {% if '/' == request.path %} class="nav-item active mr-3" {% else %} class="nav-item  mr-3" {% endif %}>
-              <a class="nav-link" href={% url 'pages:product_list' %}>立即訂餐</a>
+              <a class="nav-link" href={% url 'pages:product_list' %}>{% translate "Order Meal" %}</a>
             </li>
             <li {% if '/about' == request.path %} class="nav-item active mr-3" {% else %} class="nav-item  mr-3" {% endif %}>
-              <a class="nav-link" href={% url 'pages:about' %}>關於我們</a>
+              <a class="nav-link" href={% url 'pages:about' %}>{% translate "About us" %}</a>
             </li>
             <li {% if '/comments/' == request.path %} class="nav-item active mr-3" {% else %} class="nav-item  mr-3" {% endif %} hidden>
-              <a class="nav-link" href={% url 'pages:index' %}>評論</a>
+              <a class="nav-link" href={% url 'pages:index' %}>{% translate "Review" %}</a>
             </li>                       
             {% if user.is_authenticated and user.username == 'admin' %}
               <li {% if '/comments/' == request.path %} class="nav-item active mr-3" {% else %} class="nav-item  mr-3" {% endif %}>
-                <a class="nav-link" href={% url 'blogs:comment_list' %}>留言區管理</a>
+                <a class="nav-link" href={% url 'blogs:comment_list' %}>{% translate "Blog admin" %}</a>
               </li>
             {% endif%}
           </ul>
 
           <ul class="navbar-nav ml-auto">
             <li {% if 'blogs' in request.path %} class="nav-item mr-3 active" {% else %}  class="nav-item mr-3" {% endif %}>
-              <a class="nav-link" href="{% url 'blogs:post_list' %}">留言區</a>
+              <a class="nav-link" href="{% url 'blogs:post_list' %}">{% translate "Blog" %}</a>
             </li>
             {% if user.is_authenticated %}            
               
               <li {% if 'profile' in request.path %} class="nav-item mr-3 active" {% else %}  class="nav-item mr-3" {% endif %}>
                 {% comment %} <a class="nav-link" href="{% url 'accounts:dashboard' %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (dashboard) </a> {% endcomment %}
-                <a class="nav-link" href="{% url 'accounts:profile_detail' user.id %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (profile) </a>
+                <a class="nav-link" href="{% url 'accounts:profile_detail' user.id %}"> <i class="fas fa-user-plus"></i> {% translate "Welcome" %} {{ user.username}} ({% translate "profile" %}) </a>
               </li>
               
               {% comment %} <li>
@@ -51,15 +52,15 @@
 
               <li {% if 'change_password' in request.path %} class="nav-item mr-3 active" {% else %}  class="nav-item mr-3" {% endif %}>
                 {% comment %} <a class="nav-link" href="{% url 'accounts:dashboard' %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (dashboard) </a> {% endcomment %}
-                <a class="nav-link" href="{% url 'accounts:change_password' %}"> <i class="fas fa-user-plus"></i> Change password</a>
+                <a class="nav-link" href="{% url 'accounts:change_password' %}"> <i class="fas fa-user-plus"></i> {% translate "Change password" %}</a>
               </li>
               <!-- logout -->
                <li class="nav-item mr-3">
                   <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}" >
                     <i class="fas fa-sign-out-alt"></i>
-                    logout
+                    {% translate "Logout" %}
                   </a>
-                  <form action="{%url 'accounts:logout' %}" method="POST" id="logout">
+                  <form action="{% url 'accounts:logout' %}" method="POST" id="logout">
                       {% csrf_token %}
                       <input type="hidden"/>
                   </form>
@@ -72,16 +73,15 @@
             {% else %}   
               <li {% if 'password_reset' in request.path %} class="nav-item mr-3 active" {% else %}  class="nav-item mr-3" {% endif %}>
                 <a class="nav-link" href="{% url 'accounts:password_reset' %}">
-                  <i class="fas fa-user-plus"></i> 忘記密碼</a>
+                  <i class="fas fa-user-plus"></i> {% translate "Forgotten password" %}</a>
               </li> 
               <li {% if 'register' in request.path %} class="nav-item mr-3 active" {% else %}  class="nav-item mr-3" {% endif %}>
                 <a class="nav-link" href="{% url 'accounts:register' %}">
-                  <i class="fas fa-user-plus"></i> 登記</a>
+                  <i class="fas fa-user-plus"></i> {% translate "Register" %}</a>
               </li>
               <li {% if 'login' in request.path %} class="nav-item mr-3 active" {% else %}  class="nav-item mr-3" {% endif %}>
                 <a class="nav-link" href="{% url 'accounts:login' %}">
-                  <i class="fas fa-sign-in-alt"></i>
-                  登入</a>
+                  <i class="fas fa-sign-in-alt"></i> {% translate "Login" %}</a>
               </li>
             {% endif %}
           </ul>

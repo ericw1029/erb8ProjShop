@@ -1,0 +1,146 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-23 12:49+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/partials/_navbar.html:26
+msgid "Order Meal"
+msgstr "立即訂餐"
+
+#: templates/partials/_navbar.html:29
+msgid "About us"
+msgstr "關於我們"
+
+#: templates/partials/_navbar.html:32
+msgid "Review"
+msgstr "評論"
+
+#: templates/partials/_navbar.html:36
+msgid "Blog admin"
+msgstr "留言區管理"
+
+#: templates/partials/_navbar.html:43
+msgid "Blog"
+msgstr "留言區"
+
+#: templates/partials/_navbar.html:50
+msgid "Welcome"
+msgstr "歡迎"
+
+#: templates/partials/_navbar.html:50
+msgid "profile"
+msgstr "概述"
+
+#: templates/partials/_navbar.html:60
+msgid "Change password"
+msgstr "更改密碼"
+
+#: templates/partials/_navbar.html:66
+msgid "Logout"
+msgstr "登出"
+
+#: templates/partials/_navbar.html:81
+msgid "Forgotten password"
+msgstr "忘記密碼"
+
+#: templates/partials/_navbar.html:85
+msgid "Register"
+msgstr "登記"
+
+#: templates/partials/_navbar.html:84
+msgid "Login"
+msgstr "登入"
+
+#: templates/partials/_topbar.html:19
+msgid "Language"
+msgstr "語言"
+
+#: templates/pages/index.html:74
+msgid "Category"
+msgstr "類別"
+
+#: templates/pages/index.html:80
+msgid "All meals"
+msgstr "所有餐點"
+
+#: templates/pages/index.html:112
+msgid "Order Now"
+msgstr "立即訂購"
+
+#: templates/pages/index.html:120
+msgid "No dishes in this category."
+msgstr "此類別中未找到菜色。"
+
+#: templates/partials/_footer.html:7
+msgid "Business Hours"
+msgstr "營業時間"
+
+#: templates/partials/_footer.html:9
+msgid "Monday to Sunday"
+msgstr "星期一至日"
+
+#: templates/partials/_footer.html:10
+msgid "Public Holidays"
+msgstr "公眾假期"
+
+#: templates/partials/_footer.html:11
+msgid "Public Holidays Eve"
+msgstr "公眾假期前夕"
+
+#: templates/partials/_footer.html:16
+msgid "Navigation"
+msgstr "網站地圖"
+
+#: templates/partials/_footer.html:18
+msgid "Home"
+msgstr "首頁"
+
+#: templates/partials/_footer.html:19
+msgid "Full Menu"
+msgstr "完整菜單"
+
+#: templates/partials/_footer.html:20
+msgid "Reviews"
+msgstr "評論"
+
+#: templates/partials/_footer.html:24
+msgid "Visit Us"
+msgstr "歡迎光臨"
+
+#: templates/partials/_footer.html:26
+msgid "Shop UC-1, UC/F, Millennium City 5 (apm), 518 Kwun Tong Road, Kwun Tong"
+msgstr "觀塘觀塘道518號創紀之城五期(apm)大堂高層UC-1號舖"
+
+#: templates/partials/_footer.html:32
+msgid "All rights reserved"
+msgstr "版權所有"
+
+#: templates/base.html:38
+msgid "Your cart"
+msgstr "您的購物車"
+
+#: templates/base.html:40
+msgid "item"
+msgstr "件物品"
+
+#: templates/base.html:44
+msgid "Your cart is empty."
+msgstr "您的購物車沒有物品。"
+
+#: templates/product/detail.html:88
+msgid "Menu"
+msgstr "菜單"
