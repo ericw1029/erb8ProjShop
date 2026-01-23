@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
 {% block title %}
-  Thank you
+  謝謝
 {% endblock %}
 
 {% block content %}
   <div class="container" style="height:100%;">
-    <h1>Thank you</h1>
-    <p>Your order has been successfully completed. Your order number is
+    <h1>謝謝</h1>
+    <p>您的訂單已成功完成。您的訂單號碼是：
     <strong>{{ order.id }}</strong>.</p>
-    <p>Confirmation email will be sent to your registered email or email is input at checkout page {{checkoutEmail}}</p>
+    <p>確認郵件將會寄至您註冊的信箱或您在結帳頁面輸入的信箱。{{checkoutEmail}}</p>
   </div>
   
 {% endblock %}

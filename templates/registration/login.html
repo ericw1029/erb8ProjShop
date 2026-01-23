@@ -1,6 +1,6 @@
 {% extends 'base.html'%}
 <!-- tab title -->
- {% block title%} | Login {% endblock %}
+ {% block title%} | 登入 {% endblock %}
 {% block content%}
 
 <section id="login" class="bg-light py-5">
@@ -10,14 +10,14 @@
         {% include 'partials/_alert.html' %}
         <div class="card">
           <div class="card-header bg-primary text-white">
-            <h4><i class="fas fa-sign-in-alt"></i> Login</h4>
+            <h4><i class="fas fa-sign-in-alt"></i> 登入</h4>
           </div>
           <div class="card-body">
             
             <form action="{% url 'accounts:login' %}" method="POST">
               {% csrf_token %}
               <div class="form-group">
-                <label for="username">Username</label>
+                <label for="username">使用者名稱</label>
                 <input
                     type="text"
                     name="username"
@@ -27,7 +27,7 @@
               </div>
 
               <div class="form-group">
-                <label for="password2">Password</label>
+                <label for="password2">密碼</label>
                 <input
                     type="password"
                     name="password"

@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Pay your order{% endblock %}
+{% block title %}支付訂單{% endblock %}
 
 {% block content %}
 <div class="container">
 
 
-  <h1>Order summary</h1>
+  <h1>訂單匯總</h1>
   <table class="cart">
     <thead>
       <tr>
-        <th>Image</th>
-        <th>Product</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Total</th>
+        <th>圖片</th>
+        <th>菜餚</th>
+        <th>單價</th>
+        <th>數量</th>
+        <th>總數</th>
       </tr>
     </thead>
     <tbody>
@@ -33,7 +33,7 @@
       {% endfor %}
       {% if order.coupon %}
         <tr class="subtotal">
-          <td>Subtotal</td>
+          <td>小計</td>
           <td colspan="3"></td>
           <td class="num">
             ${{ order.get_total_cost_before_discount|floatformat:2 }}
@@ -41,7 +41,7 @@
         </tr>
         <tr>
           <td>
-            "{{ order.coupon.code }}" coupon
+            "{{ order.coupon.code }}" 優惠券
             ({{ order.discount }}% off)
           </td>
           <td colspan="3"></td>
@@ -51,13 +51,13 @@
         </tr>
       {% endif %}
       <tr class="total">
-        <td colspan="4">Total</td>
+        <td colspan="4">總數</td>
         <td class="num">${{ order.get_total_cost|floatformat:2 }}</td>
       </tr>
     </tbody>
   </table>
   <form action="{% url "payment:process" %}" method="post">
-    <input type="submit" value="Pay now">
+    <input type="submit" value="結帳">
     {% csrf_token %}
   </form>
 </div>

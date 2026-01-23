@@ -42,7 +42,7 @@
               
               <li {% if 'profile' in request.path %} class="nav-item mr-3 active" {% else %}  class="nav-item mr-3" {% endif %}>
                 {% comment %} <a class="nav-link" href="{% url 'accounts:dashboard' %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (dashboard) </a> {% endcomment %}
-                <a class="nav-link" href="{% url 'accounts:profile_detail' user.id %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (profile) </a>
+                <a class="nav-link" href="{% url 'accounts:profile_detail' user.id %}"> <i class="fas fa-user-plus"></i> 歡迎 {{ user.username}} (profile) </a>
               </li>
               
               {% comment %} <li>
@@ -50,13 +50,13 @@
 
               <li {% if 'change_password' in request.path %} class="nav-item mr-3 active" {% else %}  class="nav-item mr-3" {% endif %}>
                 {% comment %} <a class="nav-link" href="{% url 'accounts:dashboard' %}"> <i class="fas fa-user-plus"></i> Welcome {{ user.username}} (dashboard) </a> {% endcomment %}
-                <a class="nav-link" href="{% url 'accounts:change_password' %}"> <i class="fas fa-user-plus"></i> Change password</a>
+                <a class="nav-link" href="{% url 'accounts:change_password' %}"> <i class="fas fa-user-plus"></i> 更改密碼</a>
               </li>
               <!-- logout -->
                <li class="nav-item mr-3">
                   <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}" >
                     <i class="fas fa-sign-out-alt"></i>
-                    logout
+                    登出
                   </a>
                   <form action="{%url 'accounts:logout' %}" method="POST" id="logout">
                       {% csrf_token %}
