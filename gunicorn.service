@@ -1,0 +1,19 @@
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=smarts_ricky
+Group=www-data
+WorkingDirectory=/home/smarts_ricky/erb8ProjShop
+ExecStart=/home/smarts_ricky/erb8ProjShop/venv/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/gunicorn.sock \
+          erb8ProjShop.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+cd ~
+sudo /etc/systemd/system/gunicorn.service

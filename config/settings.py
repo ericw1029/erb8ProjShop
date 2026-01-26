@@ -106,7 +106,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "erb8shop1",
         "USER": "postgres",
-        "PASSWORD": "1234",
+        "PASSWORD": "admin1234",
         "HOST": "localhost",
     }
 }
