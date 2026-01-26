@@ -22,8 +22,12 @@ from django.conf import settings
 #https://django-debug-toolbar.readthedocs.io/en/latest/installation.html
 from debug_toolbar.toolbar import debug_toolbar_urls
 
+from schema_graph.views import Schema
+
+
 urlpatterns = [
-    path('admin/', admin.site.urls),    
+    path('admin/', admin.site.urls),
+    path("schema/", Schema.as_view()),    
     path('cart/', include('cart.urls', namespace='cart')),
     path('orders/', include('orders.urls', namespace='orders')),  
     path('accounts/',include('accounts.urls',namespace='accounts')),
@@ -32,7 +36,8 @@ urlpatterns = [
     path('accounts/',include('accounts.urls',namespace='accounts')),    
     path('payment/', include('payment.urls', namespace='payment')),
     path('coupons/', include('coupons.urls', namespace='coupons')),
-    path('',include('pages.urls',namespace='pages')),  
+    path('',include('pages.urls',namespace='pages')),
+    
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) + debug_toolbar_urls()
 
 
