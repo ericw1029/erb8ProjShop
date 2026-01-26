@@ -7,7 +7,7 @@
     <div class="col-lg-8">
         <div class="card">
             <div class="card-header">
-                <h4 class="mb-0"><i class="fas fa-user-edit me-2"></i>{{ title }}</h4>
+                <h4 class="mb-0"><i class="fas fa-user-edit me-2">建立新的個人資料</i>{{"" }}</h4>
             </div>
             <div class="card-body">
                 <form method="post" enctype="multipart/form-data" novalidate>
@@ -16,7 +16,7 @@
                     <!-- Form Errors -->
                     {% if form.errors %}
                         <div class="alert alert-danger">
-                            <strong>Please correct the errors below:</strong>
+                            <strong>請更正以下錯誤:</strong>
                             <ul>
                                 {% for field in form %}
                                     {% for error in field.errors %}
@@ -33,11 +33,11 @@
                     <div class="row">
                         <!-- Personal Information -->
                         <div class="col-md-6">
-                            <h5 class="border-bottom pb-2 mb-3">Personal Information</h5>
+                            <h5 class="border-bottom pb-2 mb-3">個人資訊</h5>
                             
                             <div class="mb-3">
                                 <label for="{{ form.first_name.id_for_label }}" class="form-label">
-                                    First Name *
+                                    名 *
                                 </label>
                                 {{ form.first_name }}
                                 {% if form.first_name.help_text %}
@@ -47,35 +47,35 @@
                             
                             <div class="mb-3">
                                 <label for="{{ form.last_name.id_for_label }}" class="form-label">
-                                    Last Name *
+                                    姓*
                                 </label>
                                 {{ form.last_name }}
                             </div>
                             
                             <div class="mb-3">
                                 <label for="{{ form.email.id_for_label }}" class="form-label">
-                                    Email Address *
+                                    電子郵件*
                                 </label>
                                 {{ form.email }}
                             </div>
                             
                             <div class="mb-3">
                                 <label for="{{ form.phone.id_for_label }}" class="form-label">
-                                    Phone Number
+                                    電話號碼
                                 </label>
                                 {{ form.phone }}
                             </div>
                             
                             <div class="mb-3">
                                 <label for="{{ form.gender.id_for_label }}" class="form-label">
-                                    Gender
+                                    性別
                                 </label>
                                 {{ form.gender }}
                             </div>
                             
                             <div class="mb-3">
                                 <label for="{{ form.date_of_birth.id_for_label }}" class="form-label">
-                                    Date of Birth
+                                    出生日期
                                 </label>
                                 {{ form.date_of_birth }}
                             </div>
@@ -83,44 +83,44 @@
                         
                         <!-- Additional Information -->
                         <div class="col-md-6">
-                            <h5 class="border-bottom pb-2 mb-3">Additional Information</h5>
+                            <h5 class="border-bottom pb-2 mb-3">附加資訊</h5>
                             
                             <div class="mb-3">
                                 <label for="{{ form.address.id_for_label }}" class="form-label">
-                                    Address
+                                    地址
                                 </label>
                                 {{ form.address }}
                             </div>
                             
                             <div class="mb-3">
                                 <label for="{{ form.city.id_for_label }}" class="form-label">
-                                    City
+                                    城市
                                 </label>
                                 {{ form.city }}
                             </div>
                             
                             <div class="mb-3">
                                 <label for="{{ form.country.id_for_label }}" class="form-label">
-                                    Country
+                                    國家
                                 </label>
                                 {{ form.country }}
                             </div>
                             
                             <div class="mb-3">
                                 <label for="{{ form.bio.id_for_label }}" class="form-label">
-                                    Biography
+                                    個人履歷
                                 </label>
                                 {{ form.bio }}
                             </div>
                             
                             <div class="mb-3">
                                 <label for="{{ form.profile_image.id_for_label }}" class="form-label">
-                                    Profile Image
+                                    個人資料圖片
                                 </label>
                                 {{ form.profile_image }}
                                 {% if profile and profile.profile_image %}
                                     <div class="mt-2">
-                                        <p class="mb-1">Current image:</p>
+                                        <p class="mb-1">目前圖片:</p>
                                         <img src="{{ profile.profile_image.url }}" 
                                              alt="Current profile image" 
                                              style="max-width: 100px; max-height: 100px;">
@@ -134,10 +134,10 @@
                     <div class="d-flex justify-content-between mt-4">
                         <a href="{% if profile %}{% url 'accounts:profile_detail' profile.id %}{% else %}{% url 'pages:product_list' %}{% endif %}" 
                            class="btn btn-secondary">
-                            <i class="fas fa-times me-1"></i>Cancel
+                            <i class="fas fa-times me-1"></i>取消
                         </a>                        
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save me-1"></i>Save Profile
+                            <i class="fas fa-save me-1"></i>儲存個人資料
                         </button>
                         
                     </div>

@@ -2,20 +2,20 @@
 {% load static %}
 
 {% block title %}
-  Your shopping cart
+  您的購物車
 {% endblock %}
 
 {% block content %}
-  <h1>Your shopping cart</h1>
+  <h1>您的購物車</h1>
   <table class="cart">
     <thead>
       <tr>
-        <th>Image</th>
-        <th>Product</th>
-        <th>Quantity</th>
-        <th>Remove</th>
-        <th>Unit price</th>
-        <th>Price</th>
+        <th>圖片</th>
+        <th>菜餚</th>
+        <th>數量</th>
+        <th>取消</th>
+        <th>取消</th>
+        <th>價格</th>
       </tr>
     </thead>
     <tbody>
@@ -48,7 +48,7 @@
         {% endwith %}
       {% endfor %}
       <tr class="total">
-        <td>Total</td>
+        <td>總數</td>
         <td colspan="4"></td>
         <td class="num">${{ cart.get_total_price }}</td>
       </tr>
@@ -56,7 +56,7 @@
   </table>
   <p class="text-right">
     <a href="{% url 'pages:product_list' %}" class="button
-    light">Continue shopping</a>
-    <a href="{% url 'orders:order_create' %}" class="button">Checkout</a>
+    light">繼續購物</a>
+    <a href="{% url 'orders:order_create' %}" class="button">完成選購</a>
   </p>
 {% endblock %}
