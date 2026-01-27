@@ -257,6 +257,13 @@
                     {% endfor %}
 
                     
+
+                </div>
+            </div>
+        </div>
+
+
+
         {% if reviews.has_other_pages %}
 
                     <div class="d-flex justify-content-center mt-5">
@@ -273,7 +280,7 @@
 
                                 <li class="page-item disabled">
                                     <span class="page-link text-dark fw-bold">
-                                        {% blocktranslate %}Page {{ reviews.number }} of {{ reviews.paginator.num_pages }}{% endblocktranslate %}
+                                        Page {{ reviews.number }} of {{ reviews.paginator.num_pages }}
                                     </span>
                                 </li>
 
@@ -290,9 +297,9 @@
                     </div>
         {% endif %}
 
-                </div>
-            </div>
-        </div>
+
+
+
     </div>
 </section>
 {% comment "footer" %}
