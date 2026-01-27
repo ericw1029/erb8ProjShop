@@ -49,7 +49,7 @@ urlpatterns = i18n_patterns(
    path(_('accounts/'),include('accounts.urls',namespace='accounts')),
    path(_('reviews/'), include('reviews.urls', namespace='reviews')), 
    path(_("blogs/"), include("blogs.urls", namespace="blogs")),
-   path(_('accounts/'),include('accounts.urls',namespace='accounts')),    
+   #path(_('accounts/'),include('accounts.urls',namespace='accounts')),    
    path(_('payment/'), include('payment.urls', namespace='payment')),
    path(_('coupons/'), include('coupons.urls', namespace='coupons')),
    #path('rosetta/', include('rosetta.urls')),
