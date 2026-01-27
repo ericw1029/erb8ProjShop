@@ -1,0 +1,718 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-26 09:14+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/admin/csv_form.html:6 templates/partials/_footer.html:18
+msgid "Home"
+msgstr "Home"
+
+#: templates/base.html:41
+msgid "Your cart"
+msgstr "Your cart"
+
+#: templates/base.html:43
+msgid "item"
+msgstr "item"
+
+#: templates/base.html:47
+msgid "Your cart is empty."
+msgstr "Your cart is empty."
+
+#: templates/pages/index.html:75
+msgid "Category"
+msgstr "Category"
+
+#: templates/pages/index.html:81
+msgid "All meals"
+msgstr "All meals"
+
+#: templates/pages/index.html:113
+msgid "Order Now"
+msgstr "Order Now"
+
+#: templates/pages/index.html:121
+msgid "No dishes in this category."
+msgstr "No dishes in this category."
+
+#: templates/partials/_footer.html:8
+msgid "Business Hours"
+msgstr "Business Hours"
+
+#: templates/partials/_footer.html:10
+msgid "Monday to Sunday"
+msgstr "Monday to Sunday"
+
+#: templates/partials/_footer.html:11
+msgid "Public Holidays"
+msgstr "Public Holidays"
+
+#: templates/partials/_footer.html:12
+msgid "Public Holidays Eve"
+msgstr "Public Holidays Eve"
+
+#: templates/partials/_footer.html:16
+msgid "Navigation"
+msgstr "Navigation"
+
+#: templates/partials/_footer.html:19
+msgid "Full Menu"
+msgstr "Full Menu"
+
+#: templates/partials/_footer.html:20
+#: templates/product/detail.html:98
+msgid "Reviews"
+msgstr "Reviews"
+
+#: templates/partials/_footer.html:24
+msgid "Visit Us"
+msgstr "Visit Us"
+
+#: templates/partials/_footer.html:26
+msgid "Shop UC-1, UC/F, Millennium City 5 (apm), 518 Kwun Tong Road, Kwun Tong"
+msgstr "Shop UC-1, UC/F, Millennium City 5 (apm), 518 Kwun Tong Road, Kwun Tong"
+
+#: templates/partials/_footer.html:32
+msgid "All rights reserved"
+msgstr "All rights reserved"
+
+#: templates/partials/_navbar.html:26
+msgid "Order Meal"
+msgstr "Order Meal"
+
+#: templates/partials/_navbar.html:29
+msgid "About us"
+msgstr "About us"
+
+#: templates/partials/_navbar.html:32
+msgid "Review"
+msgstr "Review"
+
+#: templates/partials/_navbar.html:36
+msgid "Blog admin"
+msgstr "Blog admin"
+
+#: templates/partials/_navbar.html:43
+msgid "Blog"
+msgstr "Blog"
+
+#: templates/partials/_navbar.html:50
+msgid "Welcome"
+msgstr "Welcome"
+
+#: templates/partials/_navbar.html:50
+msgid "profile"
+msgstr "profile"
+
+#: templates/partials/_navbar.html:60
+#: templates/accounts/password_change.html:10
+#: templates/accounts/password_change.html:53
+msgid "Change password"
+msgstr "Change password"
+
+#: templates/partials/_navbar.html:66
+msgid "Logout"
+msgstr "Logout"
+
+#: templates/partials/_navbar.html:81
+msgid "Forgotten password"
+msgstr "Forgotten password"
+
+#: templates/partials/_navbar.html:85
+#: templates/accounts/register.html:3
+#: templates/accounts/register.html:12
+#: templates/accounts/register.html:43
+msgid "Register"
+msgstr "Register"
+
+#: templates/partials/_navbar.html:89
+#: templates/accounts/login.html:3
+#: templates/accounts/login.html:13
+#: templates/accounts/login.html:43
+#: templates/accounts/profile.html:3
+msgid "Login"
+msgstr "Login"
+
+#: templates/partials/_topbar.html:19
+msgid "Language"
+msgstr "Language"
+
+#: templates/product/detail.html:88
+msgid "Menu"
+msgstr "Menu"
+
+#: templates/product/detail.html:118
+msgid "Quantity"
+msgstr "Quantity"
+
+#: templates/product/detail.html:123
+msgid "Add to Cart"
+msgstr "Add to Cart"
+
+#: templates/product/detail.html:136
+msgid "Rating Breakdown"
+msgstr "Rating Breakdown"
+
+#: templates/product/detail.html:136
+msgid "Stars"
+msgstr "Stars"
+
+#: templates/product/detail.html:144
+msgid "No rating data yet"
+msgstr "No rating data yet"
+
+#: templates/product/detail.html:155
+msgid "Customer Reviews"
+msgstr "Customer Reviews"
+
+#: templates/product/detail.html:156
+msgid "What others are saying about the"
+msgstr "What others are saying about the"
+
+#: templates/product/detail.html:161
+msgid "Leave a Review"
+msgstr "Leave a Review"
+
+#: templates/product/detail.html:165
+msgid "Login to Review"
+msgstr "Login to Review"
+
+#: templates/product/detail.html:172
+msgid "Your Review"
+msgstr "Your Review"
+
+#: templates/product/detail.html:178
+msgid "5 Stars - Excellent"
+msgstr "5 Stars - Excellent"
+
+#: templates/product/detail.html:179
+msgid "4 Stars - Very Good"
+msgstr "4 Stars - Very Good"
+
+#: templates/product/detail.html:180
+msgid "3 Stars - Average"
+msgstr "3 Stars - Average"
+
+#: templates/product/detail.html:181
+msgid "2 Stars - Poor"
+msgstr "2 Stars - Poor"
+
+#: templates/product/detail.html:182
+msgid "1 Star - Terrible"
+msgstr "1 Star - Terrible"
+
+#: templates/product/detail.html:185
+msgid "How was the taste and service?"
+msgstr "How was the taste and service?"
+
+#: templates/product/detail.html:186
+msgid "Submit Review"
+msgstr "Submit Review"
+
+#: templates/product/detail.html:205
+msgid "Edited"
+msgstr "Edited"
+
+#: templates/product/detail.html:215
+#: templates/blog/post_list.html:54
+#: templates/accounts/profile_detail.html:48
+msgid "Edit"
+msgstr "Edit"
+
+#: templates/product/detail.html:232
+msgid "New Rating"
+msgstr "New Rating"
+
+#: templates/product/detail.html:234
+msgid "5 Stars"
+msgstr "5 Stars"
+
+#: templates/product/detail.html:235
+msgid "4 Stars"
+msgstr "4 Stars"
+
+#: templates/product/detail.html:236
+msgid "3 Stars"
+msgstr "3 Stars"
+
+#: templates/product/detail.html:237
+msgid "2 Stars"
+msgstr "2 Stars"
+
+#: templates/product/detail.html:238
+msgid "1 Star"
+msgstr "1 Star"
+
+#: templates/product/detail.html:242
+msgid "New Comment"
+msgstr "New Comment"
+
+#: templates/product/detail.html:246
+msgid "Update"
+msgstr "Update"
+
+#: templates/product/detail.html:247
+#: templates/accounts/change_password.html:54
+#: templates/blog/post_list.html:86
+#: templates/accounts/password_change.html:54
+#: templates/accounts/profile_form.html:138
+msgid "Cancel"
+msgstr "Cancel"
+
+#: templates/product/detail.html:256
+msgid "No reviews yet. Be the first to try this dish!"
+msgstr "No reviews yet. Be the first to try this dish!"
+
+#: templates/accounts/change_password.html:34
+#: templates/accounts/password_change.html:35
+msgid "Current Password"
+msgstr "Current Password"
+
+#: templates/accounts/change_password.html:39
+#: templates/accounts/password_change.html:40
+msgid "New Password"
+msgstr "New Password"
+
+#: templates/accounts/change_password.html:47
+#: templates/accounts/password_change.html:48
+msgid "Confirm New Password"
+msgstr "Confirm New Password"
+
+#: templates/accounts/change_password.html:42
+#: templates/accounts/password_change.html:43
+msgid "Password must be at least 8 characters long"
+msgstr "Password must be at least 8 characters long"
+
+#: templates/accounts/change_password.html:9
+#: templates/accounts/change_password.html:52
+msgid "Change Password"
+msgstr "Change Password"
+
+#: accounts/forms.py:18
+msgid "Enter current password"
+msgstr "Enter current password"
+
+#: accounts/forms.py:24
+msgid "Enter new password"
+msgstr "Enter new password"
+
+#: accounts/forms.py:30
+msgid "Confirm new password"
+msgstr "Confirm new password"
+
+#: templates/accounts/login.html:21
+#: templates/accounts/register.html:33
+msgid "Username"
+msgstr "Username"
+
+#: templates/accounts/login.html:31
+#: templates/accounts/register.html:53
+msgid "Password"
+msgstr "Password"
+
+#: templates/accounts/login.html:17
+msgid "Please use the following form to log-in. If you don't have an account"
+msgstr "Please use the following form to log-in. If you don't have an account"
+
+#: templates/accounts/login.html:17
+msgid "register here"
+msgstr "register here"
+
+#: templates/accounts/login.html:47
+#: templates/accounts/password_reset_form.html:10
+msgid "Forgotten your password?"
+msgstr "Forgotten your password?"
+
+#: templates/accounts/register.html:18
+#: templates/accounts/profile_form.html:41
+msgid "First Name"
+msgstr "First Name"
+
+#: templates/accounts/register.html:23
+#: templates/accounts/profile_form.html:51
+msgid "Last Name"
+msgstr "Last Name"
+
+#: templates/accounts/register.html:43
+msgid "Email"
+msgstr "Email"
+
+#: templates/accounts/register.html:63
+msgid "Confirm Password"
+msgstr "Confirm Password"
+
+#: templates/product/detail.html:266
+#: templates/blog/post_list.html:99
+msgid "First"
+msgstr "First"
+
+#: templates/product/detail.html:284
+#: templates/blog/post_list.html:127
+msgid "Last"
+msgstr "Last"
+
+#: templates/product/detail.html:269
+#: templates/blog/post_list.html:104
+#: templates/blog/post_list.html:109
+msgid "Previous"
+msgstr "Previous"
+
+#: templates/product/detail.html:281
+#: templates/blog/post_list.html:122
+#: templates/blog/post_list.html:132
+msgid "Next"
+msgstr "Next"
+
+#: templates/product/detail.html:275
+msgid "Page %(reviews.number)s of %(reviews.paginator.num_pages)s"
+msgstr "Page %(reviews.number)s of %(reviews.paginator.num_pages)s"
+
+#: templates/blog/post_list.html:115
+msgid "Page %(page_obj.number)s of %(page_obj.paginator.num_pages)s"
+msgstr "Page %(page_obj.number)s of %(page_obj.paginator.num_pages)s"
+
+#: templates/blog/post_list.html:4
+#: templates/blog/post_list.html:11
+msgid "Blog Posts"
+msgstr "Blog Posts"
+
+#: templates/blog/post_list.html:14
+msgid "New Post"
+msgstr "New Post"
+
+#: templates/blog/post_list.html:24
+msgid "Search"
+msgstr "Search"
+
+#: templates/blog/post_list.html:42
+msgid "comments"
+msgstr "comments"
+
+#: templates/blog/post_list.html:49
+msgid "Read More"
+msgstr "Read More"
+
+#: templates/blog/post_list.html:60
+msgid "Delete"
+msgstr "Delete"
+
+#: templates/blog/post_list.html:73
+#: templates/blog/post_list.html:85
+msgid "Delete Post"
+msgstr "Delete Post"
+
+#: templates/blog/post_list.html:77
+msgid "Are you sure you want to delete"
+msgstr "Are you sure you want to delete"
+
+#: templates/blog/post_list.html:79
+msgid "This action cannot be undone"
+msgstr "This action cannot be undone"
+
+#: templates/blog/post_list.html:141
+msgid "No Posts Found"
+msgstr "No Posts Found"
+
+#: templates/blog/post_list.html:142
+msgid "There are no blog posts yet"
+msgstr "There are no blog posts yet"
+
+#: templates/blog/post_list.html:142
+msgid "Be the first to"
+msgstr "Be the first to"
+
+#: templates/blog/post_list.html:142
+msgid "create a post"
+msgstr "create a post"
+
+#: templates/blog/post_list.html:151
+msgid "About"
+msgstr "About"
+
+#: templates/blog/post_list.html:154
+msgid "Welcome to our blog! Share your thoughts and engage in discussions"
+msgstr "Welcome to our blog! Share your thoughts and engage in discussions"
+
+#: templates/blog/post_list.html:156
+msgid "To create posts or leave comments, please"
+msgstr "To create posts or leave comments, please"
+
+#: templates/blog/post_list.html:156
+msgid "log in"
+msgstr "log in"
+
+#: templates/blog/post_list.html:163
+msgid "Statistics"
+msgstr "Statistics"
+
+#: templates/blog/post_list.html:168
+msgid "Total Posts"
+msgstr "Total Posts"
+
+#: templates/blog/post_list.html:173
+msgid "Your Posts"
+msgstr "Your Posts"
+
+#: templates/blog/post_list.html:177
+msgid "Your Comments"
+msgstr "Your Comments"
+
+#: templates/accounts/password_reset_form.html:3
+#: templates/accounts/password_reset_confirm.html:3
+#: templates/accounts/password_reset_confirm.html:6
+#: templates/accounts/password_reset_done.html:3
+#: templates/accounts/password_reset_done.html:7
+msgid "Reset your password"
+msgstr "Reset your password"
+
+#: templates/accounts/password_reset_form.html:11
+msgid "Enter your e-mail address to obtain a new password"
+msgstr "Enter your e-mail address to obtain a new password"
+
+#: templates/accounts/password_reset_form.html:21
+msgid "Send e-mail"
+msgstr "Send e-mail"
+
+#: templates/blog/post_list.html:22
+msgid "Search posts"
+msgstr "Search posts"
+
+#: templates/accounts/change_password_done.html:3
+#: templates/accounts/change_password_done.html:17
+msgid "Password Changed Successfully"
+msgstr "Password Changed Successfully"
+
+#: templates/accounts/change_password_done.html:11
+msgid "Success"
+msgstr "Success"
+
+#: templates/accounts/change_password_done.html:19
+msgid "Your password has been updated successfully. You can now use your new password to log in"
+msgstr "Your password has been updated successfully. You can now use your new password to log in"
+
+#: templates/accounts/change_password_done.html:23
+msgid "Go to Login"
+msgstr "Go to Login"
+
+#: templates/accounts/change_password_done.html:27
+msgid "Return to Product List"
+msgstr "Return to Product List"
+
+#: templates/accounts/logged_out.html:3
+#: templates/accounts/logged_out.html:6
+msgid "Logged out"
+msgstr "Logged out"
+
+#: templates/accounts/logged_out.html:8
+msgid "You have been successfully logged out"
+msgstr "You have been successfully logged out"
+
+#: templates/accounts/logged_out.html:9
+msgid "You can"
+msgstr "You can"
+
+#: templates/accounts/logged_out.html:9
+msgid "log-in again"
+msgstr "log-in again"
+
+#: templates/accounts/password_change_done.html:3
+#: templates/accounts/password_change_done.html:8
+msgid "Password changed"
+msgstr "Password changed"
+
+#: templates/accounts/password_change_done.html:11
+msgid "Your password has been successfully changed. You can"
+msgstr "Your password has been successfully changed. You can"
+
+#: templates/accounts/password_change_done.html:11
+#: templates/accounts/password_reset_complete.html:8
+msgid "log in now"
+msgstr "log in now"
+
+#: templates/accounts/password_change_form.html:3
+#: templates/accounts/password_change_form.html:7
+msgid "Change your password"
+msgstr "Change your password"
+
+#: templates/accounts/password_change_form.html:8
+msgid "Use the form below to change your password"
+msgstr "Use the form below to change your password"
+
+#: templates/accounts/password_reset_email.html:1
+msgid "Someone asked for password reset for email"
+msgstr "Someone asked for password reset for email"
+
+#: templates/accounts/password_reset_email.html:1
+msgid "Follow the link below"
+msgstr "Follow the link below"
+
+#: templates/accounts/password_reset_email.html:3
+msgid "Your username, in case you've forgotten"
+msgstr "Your username, in case you've forgotten"
+
+#: templates/accounts/password_reset_done.html:10
+msgid "We've emailed you instructions for setting your password"
+msgstr "We've emailed you instructions for setting your password"
+
+#: templates/accounts/password_reset_done.html:11
+msgid "If you don't receive an email, please make sure you've entered the address you registered with"
+msgstr "If you don't receive an email, please make sure you've entered the address you registered with"
+
+#: templates/accounts/password_reset_confirm.html:8
+msgid "Please enter your new password twice"
+msgstr "Please enter your new password twice"
+
+#: templates/accounts/password_reset_confirm.html:15
+msgid "The password reset link was invalid, possibly because it has already been used. Please request a new password reset"
+msgstr "The password reset link was invalid, possibly because it has already been used. Please request a new password reset"
+
+#: templates/accounts/password_reset_confirm.html:12
+msgid "Change my password"
+msgstr "Change my password"
+
+#: templates/accounts/password_reset_complete.html:3
+#: templates/accounts/password_reset_complete.html:7
+msgid "Password reset"
+msgstr "Password reset"
+
+#: templates/accounts/password_reset_complete.html:8
+msgid "Your password has been reset. You can"
+msgstr "Your password has been reset. You can"
+
+#: templates/accounts/profile_form.html:20
+msgid "Please correct the errors below"
+msgstr "Please correct the errors below"
+
+#: templates/accounts/profile_form.html:37
+msgid "Personal Information"
+msgstr "Personal Information"
+
+#: templates/accounts/profile_form.html:58
+msgid "Email Address"
+msgstr "Email Address"
+
+#: templates/accounts/profile_form.html:65
+msgid "Phone Number"
+msgstr "Phone Number"
+
+#: templates/accounts/profile_form.html:72
+msgid "Gender"
+msgstr "Gender"
+
+#: templates/accounts/profile_form.html:79
+#: templates/accounts/profile_detail.html:95
+msgid "Date of Birth"
+msgstr "Date of Birth"
+
+#: templates/accounts/profile_form.html:87
+#: templates/accounts/profile_detail.html:90
+msgid "Additional Information"
+msgstr "Additional Information"
+
+#: templates/accounts/profile_form.html:91
+#: templates/accounts/profile_detail.html:62
+msgid "Address"
+msgstr "Address"
+
+#: templates/accounts/profile_form.html:98
+#: templates/accounts/profile_detail.html:
+msgid "City"
+msgstr "City"
+
+#: templates/accounts/profile_form.html:105
+#: templates/accounts/profile_detail.html:66
+msgid "Country"
+msgstr "Country"
+
+#: templates/accounts/profile_form.html:112
+#: templates/accounts/profile_detail.html:76
+msgid "Biography"
+msgstr "Biography"
+
+#: templates/accounts/profile_form.html:119
+#: templates/accounts/profile_detail.html:15
+msgid "Profile Image"
+msgstr "Profile Image"
+
+#: templates/accounts/profile_form.html:124
+msgid "Current image"
+msgstr "Current image"
+
+#: templates/accounts/profile_form.html:141
+msgid "Save Profile"
+msgstr "Save Profile"
+
+#: templates/accounts/profile_detail.html:4
+msgid "Details"
+msgstr "Details"
+
+#: templates/accounts/profile_detail.html:41
+msgid "years"
+msgstr "years"
+
+#: templates/accounts/profile_detail.html:57
+msgid "Contact Information"
+msgstr "Contact Information"
+
+#: templates/accounts/profile_detail.html:60
+msgid "Phone"
+msgstr "Phone"
+
+#: templates/accounts/profile_detail.html:82
+msgid "No biography provided"
+msgstr "No biography provided"
+
+#: templates/accounts/profile_detail.html:99
+msgid "Created"
+msgstr "Created"
+
+#: templates/accounts/profile_detail.html:103
+msgid "Last Updated"
+msgstr "Last Updated"
+
+#: templates/accounts/profile_detail.html:107
+msgid "Profile ID"
+msgstr "Profile ID"
+
+#: templates/accounts/profile_detail.html:118
+msgid "Back to Product List"
+msgstr "Back to Product List"
+
+#: templates/payment/completed.html:3
+msgid "Payment successful"
+msgstr "Payment successful"
+
+#: templates/payment/completed.html:7
+msgid "Your payment was successful"
+msgstr "Your payment was successful"
+
+#: templates/payment/completed.html:8
+msgid "Your payment has been processed successfully"
+msgstr "Your payment has been processed successfully"
+
+#: templates/payment/canceled.html:3
+msgid "Payment canceled"
+msgstr "Payment canceled"
+
+#: templates/payment/canceled.html:7
+msgid "Your payment has not been processed"
+msgstr "Your payment has not been processed"
+
+#: templates/payment/canceled.html:8
+msgid "There was a problem processing your payment"
+msgstr "There was a problem processing your payment"
+

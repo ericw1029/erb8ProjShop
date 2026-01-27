@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}{{ title }}{% endblock %}
 
@@ -16,7 +17,7 @@
                     <!-- Form Errors -->
                     {% if form.errors %}
                         <div class="alert alert-danger">
-                            <strong>請更正以下錯誤:</strong>
+                            <strong>{% translate "Please correct the errors below" %}:</strong>
                             <ul>
                                 {% for field in form %}
                                     {% for error in field.errors %}
@@ -33,11 +34,11 @@
                     <div class="row">
                         <!-- Personal Information -->
                         <div class="col-md-6">
-                            <h5 class="border-bottom pb-2 mb-3">個人資訊</h5>
+                            <h5 class="border-bottom pb-2 mb-3">{% translate "Personal Information" %}</h5>
                             
                             <div class="mb-3">
                                 <label for="{{ form.first_name.id_for_label }}" class="form-label">
-                                    名 *
+                                    {% translate "First Name" %} *
                                 </label>
                                 {{ form.first_name }}
                                 {% if form.first_name.help_text %}
@@ -47,35 +48,35 @@
                             
                             <div class="mb-3">
                                 <label for="{{ form.last_name.id_for_label }}" class="form-label">
-                                    姓*
+                                    {% translate "Last Name" %} *
                                 </label>
                                 {{ form.last_name }}
                             </div>
                             
                             <div class="mb-3">
                                 <label for="{{ form.email.id_for_label }}" class="form-label">
-                                    電子郵件*
+                                    {% translate "Email Address" %} *
                                 </label>
                                 {{ form.email }}
                             </div>
                             
                             <div class="mb-3">
                                 <label for="{{ form.phone.id_for_label }}" class="form-label">
-                                    電話號碼
+                                    {% translate "Phone Number" %}
                                 </label>
                                 {{ form.phone }}
                             </div>
                             
                             <div class="mb-3">
                                 <label for="{{ form.gender.id_for_label }}" class="form-label">
-                                    性別
+                                    {% translate "Gender" %}
                                 </label>
                                 {{ form.gender }}
                             </div>
                             
                             <div class="mb-3">
                                 <label for="{{ form.date_of_birth.id_for_label }}" class="form-label">
-                                    出生日期
+                                    {% translate "Date of Birth" %}
                                 </label>
                                 {{ form.date_of_birth }}
                             </div>
@@ -83,44 +84,44 @@
                         
                         <!-- Additional Information -->
                         <div class="col-md-6">
-                            <h5 class="border-bottom pb-2 mb-3">附加資訊</h5>
+                            <h5 class="border-bottom pb-2 mb-3">{% translate "Additional Information" %}</h5>
                             
                             <div class="mb-3">
                                 <label for="{{ form.address.id_for_label }}" class="form-label">
-                                    地址
+                                    {% translate "Address" %}
                                 </label>
                                 {{ form.address }}
                             </div>
                             
                             <div class="mb-3">
                                 <label for="{{ form.city.id_for_label }}" class="form-label">
-                                    城市
+                                    {% translate "City" %}
                                 </label>
                                 {{ form.city }}
                             </div>
                             
                             <div class="mb-3">
                                 <label for="{{ form.country.id_for_label }}" class="form-label">
-                                    國家
+                                    {% translate "Country" %}
                                 </label>
                                 {{ form.country }}
                             </div>
                             
                             <div class="mb-3">
                                 <label for="{{ form.bio.id_for_label }}" class="form-label">
-                                    個人履歷
+                                    {% translate "Biography" %}
                                 </label>
                                 {{ form.bio }}
                             </div>
                             
                             <div class="mb-3">
                                 <label for="{{ form.profile_image.id_for_label }}" class="form-label">
-                                    個人資料圖片
+                                    {% translate "Profile Image" %}
                                 </label>
                                 {{ form.profile_image }}
                                 {% if profile and profile.profile_image %}
                                     <div class="mt-2">
-                                        <p class="mb-1">目前圖片:</p>
+                                        <p class="mb-1">{% translate "Current image" %}:</p>
                                         <img src="{{ profile.profile_image.url }}" 
                                              alt="Current profile image" 
                                              style="max-width: 100px; max-height: 100px;">
@@ -134,10 +135,10 @@
                     <div class="d-flex justify-content-between mt-4">
                         <a href="{% if profile %}{% url 'accounts:profile_detail' profile.id %}{% else %}{% url 'pages:product_list' %}{% endif %}" 
                            class="btn btn-secondary">
-                            <i class="fas fa-times me-1"></i>取消
+                            <i class="fas fa-times me-1"></i>{% translate "Cancel" %}
                         </a>                        
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save me-1"></i>儲存個人資料
+                            <i class="fas fa-save me-1"></i>{% translate "Save Profile" %}
                         </button>
                         
                     </div>
