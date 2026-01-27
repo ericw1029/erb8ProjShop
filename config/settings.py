@@ -104,7 +104,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "erb8shop1",
+        "NAME": "erb8shop",
         "USER": "postgres",
         "PASSWORD": "1234",
         "HOST": "localhost",
