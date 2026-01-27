@@ -1,4 +1,5 @@
- <!-- Top Bar -->
+{% load i18n %}
+<!-- Top Bar -->
     <section id="top-bar" class="p-3">
       <div class="container">
         <div class="row">
@@ -10,6 +11,24 @@
           </div>
           <div class="col-md-4">
             <div class="social text-right">
+
+              {% get_current_language as LANGUAGE_CODE %}
+              {% get_available_languages as LANGUAGES %}
+              {% get_language_info_list for LANGUAGES as languages %}
+              <div class="languages">
+                <p>{% translate "Language" %}:</p>
+                <ul class="languages">
+                  {% for language in languages %}
+                    <li>
+                      <a href="/{{ language.code }}/"
+                      {% if language.code == LANGUAGE_CODE %} class="selected"{% endif %}>
+                        {{ language.name_local }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+
               <a href="#">
                 <i class="fab fa-twitter"></i>
               </a>

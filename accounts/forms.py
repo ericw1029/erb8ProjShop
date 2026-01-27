@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import authenticate, get_user_model
+from django.utils.translation import gettext_lazy as _
 
 from django.core.exceptions import ValidationError
 
@@ -14,19 +15,19 @@ class CustomPasswordChangeForm(forms.Form):
     old_password = forms.CharField(
         label="Current Password",
         widget=forms.PasswordInput(
-            attrs={"class": "form-control", "placeholder": "Enter current password"}
+            attrs={"class": "form-control", "placeholder": _("Enter current password")}
         ),
     )
     new_password1 = forms.CharField(
         label="New Password",
         widget=forms.PasswordInput(
-            attrs={"class": "form-control", "placeholder": "Enter new password"}
+            attrs={"class": "form-control", "placeholder": _("Enter new password")}
         ),
     )
     new_password2 = forms.CharField(
         label="Confirm New Password",
         widget=forms.PasswordInput(
-            attrs={"class": "form-control", "placeholder": "Confirm new password"}
+            attrs={"class": "form-control", "placeholder": _("Confirm new password")}
         ),
     )
 

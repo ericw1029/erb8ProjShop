@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}{{ profile.full_name }} - 使用者資訊{% endblock %}
+{% block title %}{{ profile.full_name }} - {% translate "Details" %}{% endblock %}
 
 {% block content %}
 <div class="container my-5">
@@ -11,7 +12,7 @@
         <!-- Profile Card -->
         <div class="card mb-4">
             <div class="card-header text-center">
-                <h4 class="mb-0">個人資料圖片</h4>
+                <h4 class="mb-0">{% translate "Profile Image" %}</h4>
             </div>
             <div class="card-body text-center">
                 {% if profile.profile_image %}
@@ -37,14 +38,14 @@
                 
                 {% if profile.age %}
                     <span class="badge bg-info ms-1">
-                        <i class="fas fa-birthday-cake me-1 mr-2"></i>{{ profile.age }} 年
+                        <i class="fas fa-birthday-cake me-1 mr-2"></i>{{ profile.age }} {% translate "years" %}
                     </span>
                 {% endif %}
             </div>
             {% if user.id == profile.user_id %}
             <div class="card-footer text-center">
                 <a href="{% url 'accounts:profile_update' profile.user_id %}" class="btn btn-warning me-2">
-                    <i class="fas fa-edit me-1"></i>編輯
+                    <i class="fas fa-edit me-1"></i>{% translate "Edit" %}
                 </a>
             </div>
             {% endif %}
@@ -53,16 +54,16 @@
         <!-- Contact Info -->
         <div class="card">
             <div class="card-header">
-                <h5 class="mb-0"><i class="fas fa-address-book me-2 mr-2"></i>聯絡資訊</h5>
+                <h5 class="mb-0"><i class="fas fa-address-book me-2 mr-2"></i>{% translate "Contact Information" %}</h5>
             </div>
             <div class="card-body">
-                <p><strong><i class="fas fa-phone me-2 mr-2"></i>電話:</strong><br>
+                <p><strong><i class="fas fa-phone me-2 mr-2"></i>{% translate "Phone" %}:</strong><br>
                    {{ profile.phone|default:"Not provided" }}</p>
-                <p><strong><i class="fas fa-map-marker-alt me-2 mr-2"></i>地址:</strong><br>
+                <p><strong><i class="fas fa-map-marker-alt me-2 mr-2"></i>{% translate "Address" %}:</strong><br>
                    {{ profile.address|default:"Not provided"|linebreaksbr }}</p>
-                <p><strong><i class="fas fa-city me-2 mr-2"></i>城市:</strong><br>
+                <p><strong><i class="fas fa-city me-2 mr-2"></i>{% translate "City" %}:</strong><br>
                    {{ profile.city|default:"Not provided" }}</p>
-                <p><strong><i class="fas fa-globe me-2 mr-2"></i>國家:</strong><br>
+                <p><strong><i class="fas fa-globe me-2 mr-2"></i>{% translate "Country" %}:</strong><br>
                    {{ profile.country|default:"Not provided" }}</p>
             </div>
         </div>
@@ -72,13 +73,17 @@
         <!-- Bio Card -->
         <div class="card mb-4">
             <div class="card-header">
-                <h5 class="mb-0"><i class="fas fa-user-circle me-2 mr-2"></i>履歷</h5>
+
+                <h5 class="mb-0"><i class="fas fa-user-circle me-2 mr-2"></i>{% translate "Biography" %}</h5>
+
             </div>
             <div class="card-body">
                 {% if profile.bio %}
                     <p>{{ profile.bio|linebreaks }}</p>
                 {% else %}
-                    <p class="text-muted fst-italic">沒有提供履歷</p>
+
+                    <p class="text-muted fst-italic">{% translate "No biography provided" %}.</p>
+
                 {% endif %}
             </div>
         </div>
@@ -86,24 +91,24 @@
         <!-- Additional Info -->
         <div class="card">
             <div class="card-header">
-                <h5 class="mb-0"><i class="fas fa-info-circle me-2 mr-2"></i>附加資訊</h5>
+                <h5 class="mb-0"><i class="fas fa-info-circle me-2 mr-2"></i>{% translate "Additional Information" %}</h5>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <p><strong><i class="fas fa-calendar-alt me-2 mr-2"></i>出生日期:</strong><br>
+                        <p><strong><i class="fas fa-calendar-alt me-2 mr-2"></i>{% translate "Date of Birth" %}:</strong><br>
                            {{ profile.date_of_birth|date:"F d, Y"|default:"Not provided" }}</p>
                     </div>
                     <div class="col-md-6">
-                        <p><strong><i class="fas fa-calendar-plus me-2 mr-2"></i>創建:</strong><br>
+                        <p><strong><i class="fas fa-calendar-plus me-2 mr-2"></i>{% translate "Created" %}:</strong><br>
                            {{ profile.created_at|date:"F d, Y H:i" }}</p>
                     </div>
                     <div class="col-md-6">
-                        <p><strong><i class="fas fa-calendar-check me-2 mr-2"></i>最後更新:</strong><br>
+                        <p><strong><i class="fas fa-calendar-check me-2 mr-2"></i>{% translate "Last Updated" %}:</strong><br>
                            {{ profile.updated_at|date:"F d, Y H:i" }}</p>
                     </div>
                     <div class="col-md-6">
-                        <p><strong><i class="fas fa-id-card me-2 mr-2"></i>檔案編號:</strong><br>
+                        <p><strong><i class="fas fa-id-card me-2 mr-2"></i>{% translate "Profile ID" %}:</strong><br>
                            {{ profile.id }}</p>
                     </div>
                 </div>
@@ -114,7 +119,7 @@
 
 <div class="mt-4">
     <a href="{% url 'pages:product_list' %}" class="btn btn-secondary">
-        <i class="fas fa-arrow-left me-1 mr-2"></i>返回產菜餚列表
+        <i class="fas fa-arrow-left me-1 mr-2"></i>{% translate "Back to Product List" %}
     </a>
 </div>
 </div>
