@@ -4,9 +4,14 @@
 {% block title %}{% translate "Logged out" %}{% endblock %}
 
 {% block content %}
+<div class="container">
   <h1>{% translate "Logged out" %}</h1>
-  <p>
+  <div class="row">
+    <p>
     {% translate "You have been successfully logged out" %}.
     {% translate "You can" %} <a href="{% url "login" %}">{% translate "log-in again" %}</a>.
   </p>
+  </div>
+</div>
+  
 {% endblock %}
