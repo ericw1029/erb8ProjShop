@@ -2,6 +2,7 @@ from decimal import Decimal
 from django.conf import settings
 from pages.models import Product
 from coupons.models import Coupon
+from django.db import transaction
 
 
 class Cart:
@@ -25,14 +26,15 @@ class Cart:
         """
         product_ids = self.cart.keys()
         # get the product objects and add them to the cart
-        products = Product.objects.filter(id__in=product_ids)
-        cart = self.cart.copy()
-        for product in products:
-            cart[str(product.id)]['product'] = product
-        for item in cart.values():
-            item['price'] = Decimal(item['price'])
-            item['total_price'] = item['price'] * item['quantity']
-            yield item
+        with transaction.atomic():
+            products = Product.objects.select_for_update().filter(id__in=product_ids)
+            cart = self.cart.copy()
+            for product in products:
+                cart[str(product.id)]['product'] = product
+            for item in cart.values():
+                item['price'] = Decimal(item['price'])
+                item['total_price'] = item['price'] * item['quantity']
+                yield item
 
     def __len__(self):
         """
